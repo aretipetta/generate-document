@@ -12,6 +12,8 @@ namespace GenerateDocument
 {
     public partial class Form1 : Form
     {
+        List<Panel> panels;
+
         public Form1()
         {
             InitializeComponent();
@@ -19,8 +21,9 @@ namespace GenerateDocument
 
         private void button1_Click(object sender, EventArgs e)
         {
+            int n = (int)numericUpDown1.Value;
             // go to form2
-            Form2 form2 = new Form2();
+            Form2 form2 = new Form2(this, n);
             form2.Show();
             this.Hide();
         }
@@ -129,6 +132,46 @@ namespace GenerateDocument
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            // prwta ola einai invisible
+            panels = new List<Panel>();
+            List<Panel> temp = new List<Panel>();
+            foreach (Control c in this.Controls)
+            {
+                if (c is Panel panel)
+                {
+                    foreach(Control c2 in panel.Controls)
+                    {
+                        if(c2 is ComboBox comboBox) comboBox.Items.AddRange(new object[] { CategoryEnum.UPPER_BODY, CategoryEnum.LEGS });
+                    }
+                    temp.Add(panel);
+                }
+            }
+
+            temp.ForEach(p => p.Visible = false);
+            panels = temp.OrderBy(p => p.Name).ToList();
+            button1.Visible = false;
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            // kanei visible ta n prwta panels
+            int n = (int)numericUpDown1.Value;
+            for (int i = 0; i < n; i++) {
+                panels[i].Visible = true;
+            }
+            button1.Visible = true;
+        }
+
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+            // opote allazei kanei invisible ola ta alla
+            button1.Visible = false;
+            panels.ForEach(p => p.Visible = false);
         }
     }
 }
