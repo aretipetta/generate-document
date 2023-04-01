@@ -21,10 +21,19 @@ namespace GenerateDocument
 
         private void button1_Click(object sender, EventArgs e)
         {
-            int n = (int)numericUpDown1.Value;
-            // go to form2
-            Form2 form2 = new Form2(this, n);
-            form2.Show();
+            int n = (int)numericUpDown1.Value; // days
+            List<CategoryEnum> categoryPerDay = new List<CategoryEnum>();  // list of program per day. true if it's upperBody, false if it's not
+            for(int i = 0; i < n; i++)
+            {
+                // pairnei tis times apo ta comboBoxes gia th lista pou tha steilei sthn next form
+                foreach(Control c in panels[i].Controls)
+                {
+                    if (c is ComboBox comboBox) categoryPerDay.Add((CategoryEnum)((ComboBox)c).SelectedItem);
+                }
+            }
+            // go to daily program
+            DailyProgram dailyProgram = new DailyProgram(this, n, categoryPerDay);
+            dailyProgram.Show();
             this.Hide();
         }
 

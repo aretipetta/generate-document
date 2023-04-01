@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GenerateDocument
 {
-    enum ColumnEnum
+    public enum ColumnEnum
     {
         Muscle_Groups = 1,
         Description = 2,

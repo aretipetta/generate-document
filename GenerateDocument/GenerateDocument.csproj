@@ -63,6 +63,12 @@
   <ItemGroup>
     <Compile Include="CategoryEnum.cs" />
     <Compile Include="ColumnEnum.cs" />
+    <Compile Include="DailyProgram.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DailyProgram.Designer.cs">
+      <DependentUpon>DailyProgram.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -77,6 +83,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="DailyProgram.resx">
+      <DependentUpon>DailyProgram.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

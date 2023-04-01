@@ -10,3 +10,4 @@ C:\Users\areti\Documents\my_projects\projects\GenerateDocument\GenerateDocument\
 C:\Users\areti\Documents\my_projects\projects\GenerateDocument\GenerateDocument\obj\Debug\GenerateDocument.exe
 C:\Users\areti\Documents\my_projects\projects\GenerateDocument\GenerateDocument\obj\Debug\GenerateDocument.pdb
 C:\Users\areti\Documents\my_projects\projects\GenerateDocument\GenerateDocument\obj\Debug\GenerateDocument.Form2.resources
+C:\Users\areti\Documents\my_projects\projects\GenerateDocument\GenerateDocument\obj\Debug\GenerateDocument.DailyProgram.resources

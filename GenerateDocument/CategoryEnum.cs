@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GenerateDocument
 {
-    enum CategoryEnum
+    public enum CategoryEnum
     {
         UPPER_BODY = 1, 
         LEGS = 2
