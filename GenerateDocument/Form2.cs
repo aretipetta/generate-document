@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -68,16 +69,21 @@ namespace GenerateDocument
         // load items to comboBoxes
         private void loadItems()
         {
-            if(((int)categoryEnum) == 1)
-            {
-                // 1 = upper body
-                comboBox1.Items.AddRange(new object[] { "τσίτος", "πλάτη", "δικέφαλοι", "τρικέφαλοι", "κοιλιακοί", "ραχιαίοι", "full" });
-            }
-            else
-            {
-                // legs
-                comboBox1.Items.AddRange(new object[] { "πόδια", "ώμοι", "κοιλιακοί", "ραχιαίοι", "full" });
-            }
+            List<String> items = new List<string>(ConfigurationManager.AppSettings[categoryEnum.ToString()].Split(';'));
+            comboBox1.Items.AddRange(items.ToArray());
+
+            //if(((int)categoryEnum) == 1)
+            //{
+            //    // 1 = upper body
+            //    List<String> items = new List<string>(ConfigurationManager.AppSettings["UpperBody"].Split(';'));
+            //    comboBox1.Items.AddRange(items.ToArray());
+            //}
+            //else
+            //{
+            //    // legs
+            //    List<String> items = new List<string>(ConfigurationManager.AppSettings["Legs"].Split(';'));
+            //    comboBox1.Items.AddRange(items.ToArray());
+            //}
         }
 
 
