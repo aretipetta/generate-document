@@ -22,11 +22,26 @@ namespace GenerateDocument
         private void button1_Click(object sender, EventArgs e)
         {
             int n = (int)numericUpDown1.Value; // days
-            List<CategoryEnum> categoryPerDay = new List<CategoryEnum>();  // list of program per day. true if it's upperBody, false if it's not
             for(int i = 0; i < n; i++)
             {
+                foreach (Control c in panels[i].Controls)
+                {
+                    if (c is ComboBox comboBox)
+                    {
+                        if (((ComboBox)c).SelectedIndex == -1)
+                        {
+                            MessageBox.Show("All fields are required.");
+                            return;
+                        }
+                    }
+                }
+            }
+
+            List<CategoryEnum> categoryPerDay = new List<CategoryEnum>();  // list of program per day
+            for (int i = 0; i < n; i++)
+            {
                 // pairnei tis times apo ta comboBoxes gia th lista pou tha steilei sthn next form
-                foreach(Control c in panels[i].Controls)
+                foreach (Control c in panels[i].Controls)
                 {
                     if (c is ComboBox comboBox) categoryPerDay.Add((CategoryEnum)((ComboBox)c).SelectedItem);
                 }
@@ -166,6 +181,7 @@ namespace GenerateDocument
 
         }
 
+        // ok button
         private void button2_Click(object sender, EventArgs e)
         {
             // kanei visible ta n prwta panels
