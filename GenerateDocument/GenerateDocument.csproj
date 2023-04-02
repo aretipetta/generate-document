@@ -69,6 +69,7 @@
     <Compile Include="DailyProgram.Designer.cs">
       <DependentUpon>DailyProgram.cs</DependentUpon>
     </Compile>
+    <Compile Include="Exercise.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -83,6 +84,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TableOfProgram.cs" />
     <EmbeddedResource Include="DailyProgram.resx">
       <DependentUpon>DailyProgram.cs</DependentUpon>
     </EmbeddedResource>

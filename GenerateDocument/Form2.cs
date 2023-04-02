@@ -15,12 +15,14 @@ namespace GenerateDocument
 
         DailyProgram dailyProgram;
         CategoryEnum categoryEnum;
+        int day;
 
-        public Form2(DailyProgram dailyProgram, CategoryEnum categoryEnum)
+        public Form2(DailyProgram dailyProgram, CategoryEnum categoryEnum, int day)
         {
             InitializeComponent();
             this.dailyProgram = dailyProgram;
             this.categoryEnum = categoryEnum;
+            this.day = day;
         }
 
 
@@ -42,33 +44,25 @@ namespace GenerateDocument
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             // otan epileksei muscle group tote ta alla katharizoun kai ginontai ksana enabled
-            clearControls();
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            // emfanizei ta controls kai auto ginetai invisible
-            // tha emfanistei ksana otan prostethei h askhsh sto daily
-            panel3.Visible = true;
-            button2.Visible = false;
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            // prosthetei to programma sth lista kai kanei clear ola ta fields tou panel2
+            if(comboBox1.SelectedIndex != -1)
+            {
+                clearControls();
+                comboBox2.Items.AddRange(new object[] { "ενα", "δύο", "τρία" });
+                comboBox2.Enabled = true;
+            }
+            else
+            {
+                clearControls();
+            }
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            // edw kanei clear ta controls tou panel3 kai disable olo to panel3, enable to add new exercise
-            panel3.Visible = false;
-            button2.Visible = true;
-            foreach(Control c in panel3.Controls)
-            {
-                if (c is ComboBox) ((ComboBox)c).Items.Clear();
-                else if (c is NumericUpDown) ((NumericUpDown)c).Value = 1;
-                else if (c is RichTextBox) ((RichTextBox)c).Clear();
-            }
+            // prwta apothikeush tou exercise sth lista kai emfanish sto gridView tis pisw form
+            dailyProgram.addExerciseToTable(comboBox1.SelectedItem.ToString(), comboBox2.SelectedItem.ToString(), comboBox3.SelectedItem.ToString(),
+                (int)numericUpDown1.Value, (int)numericUpDown2.Value, (int)numericUpDown3.Value, richTextBox1.Text);
+            // edw kanei clear ta controls tou panel3
+            clearControls();
         }
 
         // load items to comboBoxes
@@ -91,12 +85,42 @@ namespace GenerateDocument
         private void clearControls()
         {
             comboBox2.Items.Clear();
+            comboBox2.Enabled = false;
             comboBox3.Items.Clear();
+            comboBox3.Enabled = false;
             numericUpDown1.Value = 1;
             numericUpDown2.Value = 1;
             numericUpDown3.Value = 1;
             richTextBox1.Clear();
+
+            //foreach (Control c in panel3.Controls)
+            //{
+            //    if (c is ComboBox) ((ComboBox)c).Items.Clear();
+            //    else if (c is NumericUpDown) ((NumericUpDown)c).Value = 1;
+            //    else if (c is RichTextBox) ((RichTextBox)c).Clear();
+            //}
+
         }
 
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            dailyProgram.Enabled = true;
+            base.OnFormClosing(e);
+        }
+
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // an index > 0 ==> enable comboBox3
+            if(comboBox2.SelectedIndex != -1)
+            {
+                comboBox3.Items.Clear();
+                comboBox3.Items.AddRange(new object[] { "one", "two", "three" });
+                comboBox3.Enabled = true;
+            }
+            else
+            {
+                clearControls();
+            }
+        }
     }
 }
