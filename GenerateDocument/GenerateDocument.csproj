@@ -71,6 +71,12 @@
       <DependentUpon>DailyProgram.cs</DependentUpon>
     </Compile>
     <Compile Include="Exercise.cs" />
+    <Compile Include="ExtractProgramForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ExtractProgramForm.Designer.cs">
+      <DependentUpon>ExtractProgramForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -88,6 +94,9 @@
     <Compile Include="TableOfProgram.cs" />
     <EmbeddedResource Include="DailyProgram.resx">
       <DependentUpon>DailyProgram.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExtractProgramForm.resx">
+      <DependentUpon>ExtractProgramForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>

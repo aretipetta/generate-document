@@ -71,6 +71,8 @@ namespace GenerateDocument
             dataGridViews[counter].Visible = true;
             if (counter == 0) pictureBox1.Visible = false;
             if (counter == days - 2) pictureBox2.Visible = true;
+            // elegxos gia to button2.enabled ==> add new exercise
+            this.button2.Enabled = !(tablesOfProgram[counter].Exercises.Count == 15);
         }
 
         // next day
@@ -82,6 +84,8 @@ namespace GenerateDocument
             dataGridViews[counter].Visible = true;
             if (counter + 1 == days) pictureBox2.Visible = false;
             if (counter == 1) pictureBox1.Visible = true;
+            // elegxos gia to button2.enabled ==> add new exercise
+            this.button2.Enabled = !(tablesOfProgram[counter].Exercises.Count == 15);
         }
 
         // add exercise
@@ -103,6 +107,24 @@ namespace GenerateDocument
             dataGridViews[counter].Visible = true;
         }
 
+        // eksagwgh programmatos
+        private void button3_Click(object sender, EventArgs e)
+        {
+            // elegxos oti oloi oi pinakes exoune megethos megalutero apo 1 kai mikrotero apo 16
+            tablesOfProgram.ForEach(p =>
+            {
+                if(p.Exercises.Count < 1 || p.Exercises.Count > 15)
+                {
+                    MessageBox.Show("Οι πίνακες πρέπει να έχουν τουλάχιστον 1 εγγραφή και το πολύ 15");
+                    return;
+                }
+            });
+
+            // metavash se allh forma me olous tous pinakes gia epivevaiwsh (?)
+            ExtractProgramForm extractProgramForm = new ExtractProgramForm();
+            extractProgramForm.Show();
+        }
+
         public void addExerciseToTable(String muscleGroup, String description, String equipment, int set, int reps, int rest, String notes)
         {
             // prosthetei ena row sto datagridView ths day meras
@@ -110,6 +132,12 @@ namespace GenerateDocument
             //TableOfProgram tableOfProgram = tablesOfProgram[counter];
             tablesOfProgram[counter].addExercise(muscleGroup, description, equipment, set, reps, rest, notes);
             dataGridViews[counter].Height += 20;
+
+            // telos elegxos oti den exei valei hdh 15 askiseis (15 einai to max) 
+            if (tablesOfProgram[counter].Exercises.Count == 15)
+            {
+                this.button2.Enabled = false;
+            }
         }
 
     }
