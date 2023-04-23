@@ -42,14 +42,32 @@ namespace GenerateDocument
             loadItems();
         }
 
+        // an allaksei h timh sto 1o comboBox
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             // otan epileksei muscle group tote ta alla katharizoun kai ginontai ksana enabled
-            if(comboBox1.SelectedIndex != -1)
+            clearControls();
+            if (comboBox1.SelectedIndex != -1)
             {
-                clearControls();
-                comboBox2.Items.AddRange(new object[] { "ενα", "δύο", "τρία" });
+                // pairnei to item tou comboBox1 kai psaxnei ta antistoixa apo to App.config
+                String muscleGroup = comboBox1.SelectedItem.ToString();
+                List<String> items = new List<string>(ConfigurationManager.AppSettings[muscleGroup].Split(';'));
+                //comboBox1.Items.AddRange(items.ToArray());
+                comboBox2.Items.AddRange(items.ToArray());
                 comboBox2.Enabled = true;
+            }
+        }
+
+        // an allaksei h timh sto 2o comboBox
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // an index > 0 ==> enable comboBox3
+            if (comboBox2.SelectedIndex != -1)
+            {
+                comboBox3.Items.Clear();
+                List<String> items = new List<string>(ConfigurationManager.AppSettings[ColumnEnum.Equipment.ToString().ToLower()].Split(';'));
+                comboBox3.Items.AddRange(items.ToArray());
+                comboBox3.Enabled = true;
             }
             else
             {
@@ -57,6 +75,8 @@ namespace GenerateDocument
             }
         }
 
+
+        // add excercise
         private void button4_Click(object sender, EventArgs e)
         {
             // prwta apothikeush tou exercise sth lista kai emfanish sto gridView tis pisw form
@@ -71,19 +91,6 @@ namespace GenerateDocument
         {
             List<String> items = new List<string>(ConfigurationManager.AppSettings[categoryEnum.ToString()].Split(';'));
             comboBox1.Items.AddRange(items.ToArray());
-
-            //if(((int)categoryEnum) == 1)
-            //{
-            //    // 1 = upper body
-            //    List<String> items = new List<string>(ConfigurationManager.AppSettings["UpperBody"].Split(';'));
-            //    comboBox1.Items.AddRange(items.ToArray());
-            //}
-            //else
-            //{
-            //    // legs
-            //    List<String> items = new List<string>(ConfigurationManager.AppSettings["Legs"].Split(';'));
-            //    comboBox1.Items.AddRange(items.ToArray());
-            //}
         }
 
 
@@ -114,19 +121,6 @@ namespace GenerateDocument
             base.OnFormClosing(e);
         }
 
-        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            // an index > 0 ==> enable comboBox3
-            if(comboBox2.SelectedIndex != -1)
-            {
-                comboBox3.Items.Clear();
-                comboBox3.Items.AddRange(new object[] { "one", "two", "three" });
-                comboBox3.Enabled = true;
-            }
-            else
-            {
-                clearControls();
-            }
-        }
+        
     }
 }

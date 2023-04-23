@@ -111,17 +111,22 @@ namespace GenerateDocument
         private void button3_Click(object sender, EventArgs e)
         {
             // elegxos oti oloi oi pinakes exoune megethos megalutero apo 1 kai mikrotero apo 16
-            tablesOfProgram.ForEach(p =>
+            foreach(TableOfProgram tp in tablesOfProgram)
             {
-                if(p.Exercises.Count < 1 || p.Exercises.Count > 15)
+                if (tp.Exercises.Count < 1 || tp.Exercises.Count > 15)
                 {
-                    MessageBox.Show("Οι πίνακες πρέπει να έχουν τουλάχιστον 1 εγγραφή και το πολύ 15");
+                    MessageBox.Show("Οι πίνακες πρέπει να έχουν τουλάχιστον 1 εγγραφή και το πολύ 15.");
                     return;
                 }
-            });
+            }
+            //tablesOfProgram.ForEach(p =>
+            //{
+                
+            //});
 
             // metavash se allh forma me olous tous pinakes gia epivevaiwsh (?)
-            ExtractProgramForm extractProgramForm = new ExtractProgramForm();
+            ExtractProgramForm extractProgramForm = new ExtractProgramForm(this);
+            this.Enabled = false;
             extractProgramForm.Show();
         }
 

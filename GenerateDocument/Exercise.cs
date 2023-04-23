@@ -24,9 +24,9 @@ namespace GenerateDocument
         public string MuscleGroup { get => muscleGroup; set => muscleGroup = value; }
         public string Description { get => description; set => description = value; }
         public string Equipment { get => equipment; set => equipment = value; }
-        public string Notes { get => notes; set => notes = value; }
         public int Set { get => set; set => set = value; }
         public int Reps { get => reps; set => reps = value; }
         public int Rest { get => rest; set => rest = value; }
+        public string Notes { get => notes; set => notes = value; }
     }
 }
