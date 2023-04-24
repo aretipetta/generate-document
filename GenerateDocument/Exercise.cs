@@ -28,5 +28,7 @@ namespace GenerateDocument
         public int Reps { get => reps; set => reps = value; }
         public int Rest { get => rest; set => rest = value; }
         public string Notes { get => notes; set => notes = value; }
+
+
     }
 }

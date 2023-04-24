@@ -8,12 +8,12 @@ namespace GenerateDocument
 {
     public enum ColumnEnum
     {
-        Muscle_Groups = 1,
-        Description = 2,
-        Equipment = 3,
-        Set = 4,
-        Reps = 5, 
-        Break = 6,
-        Note = 7
+        MUSCLE_GROUPS = 1,
+        DESCRIPTION = 2,
+        EQUIPEMENT = 3,
+        SET= 4,
+        REPS = 5, 
+        BREAK = 6,
+        NOTE = 7
     }
 }

@@ -125,7 +125,7 @@ namespace GenerateDocument
             //});
 
             // metavash se allh forma me olous tous pinakes gia epivevaiwsh (?)
-            ExtractProgramForm extractProgramForm = new ExtractProgramForm(this);
+            ExtractProgramForm extractProgramForm = new ExtractProgramForm(this, days, tablesOfProgram);
             this.Enabled = false;
             extractProgramForm.Show();
         }

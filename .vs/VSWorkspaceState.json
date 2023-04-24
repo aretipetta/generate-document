@@ -1,9 +1,8 @@
 {
   "ExpandedNodes": [
     "",
-    "\\GenerateDocument",
-    "\\GenerateDocument\\bin\\Debug"
+    "\\GenerateDocument"
   ],
-  "SelectedNode": "\\GenerateDocument\\Form1.cs",
+  "SelectedNode": "\\GenerateDocument.sln",
   "PreviewInSolutionExplorer": false
 }

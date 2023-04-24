@@ -17,10 +17,14 @@ namespace GenerateDocument
         //String rgx = "^[a-zA-Z0-9]$";
 
         DailyProgram dailyProgram;
+        int days;
+        List<TableOfProgram> tablesOfProgram;
 
-        public ExtractProgramForm(DailyProgram dailyProgram)
+        public ExtractProgramForm(DailyProgram dailyProgram, int days, List<TableOfProgram> tablesOfProgram)
         {
             this.dailyProgram = dailyProgram;
+            this.days = days;
+            this.tablesOfProgram = tablesOfProgram;
             InitializeComponent();
         }
 
@@ -49,12 +53,14 @@ namespace GenerateDocument
         // dhmiourgia programmatos kai extract .docx file
         private void button1_Click(object sender, EventArgs e)
         {
-
+            MessageBox.Show("hello???");
+            createDoc();
         }
 
 
         public void createDoc()
         {
+            MessageBox.Show("wtf????");
             try
             {
 
@@ -63,6 +69,7 @@ namespace GenerateDocument
                 wordApp.Visible = false;
                 object missing = System.Reflection.Missing.Value;
                 Microsoft.Office.Interop.Word.Document wordDocument = wordApp.Documents.Add(ref missing, ref missing, ref missing, ref missing);
+                MessageBox.Show("Before sections");
                 foreach (Microsoft.Office.Interop.Word.Section section in wordDocument.Sections)
                 {
                     //Get the header range and add the header details.  
@@ -71,47 +78,38 @@ namespace GenerateDocument
                     headerRange.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
                     headerRange.Font.ColorIndex = Microsoft.Office.Interop.Word.WdColorIndex.wdBlue;
                     headerRange.Font.Size = 20;
-                    headerRange.Text = "YOUR PROGRAM";
+                    headerRange.Text = "ΠΡΟΓΡΑΜΜΑ";
                     //Get the footer range and add the footer details.  
                     Microsoft.Office.Interop.Word.Range footerRange = section.Footers[Microsoft.Office.Interop.Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
                     footerRange.Font.ColorIndex = Microsoft.Office.Interop.Word.WdColorIndex.wdDarkRed;
                     footerRange.Font.Size = 9;
                     footerRange.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
-                    footerRange.Text = "made by me :)";
+                    footerRange.Text = "for more send here: 'aretpett@gmail.com'    please, no dp :)";
                 }
 
                 //adding text to document  
                 wordDocument.Content.SetRange(0, 0);
                 wordDocument.Content.Text = "Your weekly program" + Environment.NewLine;
 
-                int numOfProgramms = 2; //
-                                        //
-                                        //
-                                        //
-                                        //
-                                        //
-                                        // TODOOO
-                                        //
-                                        //
-                                        //
-                                        //
-                                        // (int)numericUpDown1.Value;
+                // create tables for each program
 
-                for (int i = 0; i < numOfProgramms; i++)
+                for (int i = 0; i < days; i++)
                 {
+                    MessageBox.Show("table " + i);
                     // add header
                     //Add paragraph with Heading 1 style  
                     Microsoft.Office.Interop.Word.Paragraph para1 = wordDocument.Content.Paragraphs.Add(ref missing);
                     //object styleHeading1 = "Επικεφαλίδα 1";
                     Object styleHeading1 = Microsoft.Office.Interop.Word.WdBuiltinStyle.wdStyleHeading1;
                     para1.Range.set_Style(ref styleHeading1);
-                    para1.Range.Text = "Program " + i;
+                    para1.Range.Text = "Πρόγραμμα " + (i + 1);
                     para1.Range.InsertParagraphAfter();
 
                     // create table
                     //Create a table and insert some dummy record  
                     Microsoft.Office.Interop.Word.Table firstTable = wordDocument.Tables.Add(para1.Range, 5, 7, ref missing, ref missing);
                     firstTable.Borders.Enable = 1;
+                    TableOfProgram tbl = tablesOfProgram[i]; // the whole table with exercises
                     foreach (Microsoft.Office.Interop.Word.Row row in firstTable.Rows)
                     {
                         foreach (Microsoft.Office.Interop.Word.Cell cell in row.Cells)
@@ -134,7 +132,11 @@ namespace GenerateDocument
                             }
                             else //Data row  
                             {
-                                cell.Range.Text = (cell.RowIndex - 2 + cell.ColumnIndex).ToString();
+                                Microsoft.Office.Interop.Word.Range range = wordDocument.Paragraphs.Add().Range;
+                                // get the exercise under the specific table
+                                Exercise exercise = tbl.Exercises[cell.RowIndex - 1]; // the exact record that has to be added on doc's table
+                                
+                                cell.Range.Text = "t" + (cell.RowIndex - 2 + cell.ColumnIndex).ToString();
                             }
                         }
                     }
@@ -150,7 +152,7 @@ namespace GenerateDocument
 
 
                 //Save the document  
-                //string pathToDesktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                //string pathToDesktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);  TODO: this doesn't work
                 //object filename = @"c:\temp1.docx";
                 object filename = @"C:\Users\areti\Desktop\testDoc.docx";
                 //object filename = pathToDesktop + @"\testDoc.docx";

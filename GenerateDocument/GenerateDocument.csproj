@@ -92,6 +92,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TableOfProgram.cs" />
+    <Compile Include="TerminologyEnum.cs" />
     <EmbeddedResource Include="DailyProgram.resx">
       <DependentUpon>DailyProgram.cs</DependentUpon>
     </EmbeddedResource>

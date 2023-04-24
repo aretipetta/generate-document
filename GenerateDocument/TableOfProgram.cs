@@ -9,6 +9,7 @@ namespace GenerateDocument
     public class TableOfProgram
     {
         private CategoryEnum category;
+        // exercises: contains all the records of a table of program
         private System.ComponentModel.BindingList<Exercise> exercises;
 
         public TableOfProgram(CategoryEnum category)

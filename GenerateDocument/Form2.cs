@@ -5,10 +5,10 @@ using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
 namespace GenerateDocument
 {
     public partial class Form2 : Form
@@ -50,7 +50,7 @@ namespace GenerateDocument
             if (comboBox1.SelectedIndex != -1)
             {
                 // pairnei to item tou comboBox1 kai psaxnei ta antistoixa apo to App.config
-                String muscleGroup = comboBox1.SelectedItem.ToString();
+                String muscleGroup = toEn(comboBox1.SelectedItem.ToString());
                 List<String> items = new List<string>(ConfigurationManager.AppSettings[muscleGroup].Split(';'));
                 //comboBox1.Items.AddRange(items.ToArray());
                 comboBox2.Items.AddRange(items.ToArray());
@@ -65,7 +65,7 @@ namespace GenerateDocument
             if (comboBox2.SelectedIndex != -1)
             {
                 comboBox3.Items.Clear();
-                List<String> items = new List<string>(ConfigurationManager.AppSettings[ColumnEnum.Equipment.ToString().ToLower()].Split(';'));
+                List<String> items = new List<string>(ConfigurationManager.AppSettings[ColumnEnum.EQUIPEMENT.ToString()].Split(';'));
                 comboBox3.Items.AddRange(items.ToArray());
                 comboBox3.Enabled = true;
             }
@@ -114,6 +114,25 @@ namespace GenerateDocument
             //}
 
         }
+
+        // get the english terminology for a muscle group
+        public String toEn(String termInGreek)
+        {
+            String termInEnglish = null;
+            
+
+            foreach (TerminologyEnum term in Enum.GetValues(typeof(TerminologyEnum)))
+            {
+                FieldInfo fi = TerminologyEnum.ABS.GetType().GetField(term.ToString());
+                DescriptionAttribute[] attributes = (DescriptionAttribute[])fi.GetCustomAttributes(typeof(DescriptionAttribute), false);
+                if (attributes != null && attributes.Length > 0)
+                {
+                    if (attributes[0].Description == termInGreek) return term.ToString();
+                }
+            }
+            return termInEnglish;
+        }
+
 
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
