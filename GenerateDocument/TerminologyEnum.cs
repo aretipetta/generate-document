@@ -24,6 +24,6 @@ namespace GenerateDocument
         [Description("ΡΑΧΙΑΙΟΙ")]
         DORSALS = 7,
         [Description("ΠΟΔΙΑ")]
-        LEGS = 8
+        LEGS_E = 8
     }
 }

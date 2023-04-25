@@ -114,6 +114,7 @@ namespace GenerateDocument
                     {
                         foreach (Microsoft.Office.Interop.Word.Cell cell in row.Cells)
                         {
+                            MessageBox.Show("row here = " + cell.RowIndex);
                             //Header row  
                             if (cell.RowIndex == 1)
                             {
@@ -134,8 +135,8 @@ namespace GenerateDocument
                             {
                                 Microsoft.Office.Interop.Word.Range range = wordDocument.Paragraphs.Add().Range;
                                 // get the exercise under the specific table
-                                Exercise exercise = tbl.Exercises[cell.RowIndex - 1]; // the exact record that has to be added on doc's table
-                                
+                                //Exercise exercise = tbl.Exercises[cell.RowIndex]; // the exact record that has to be added on doc's table
+                                // todo: add all exercises to a vector
                                 cell.Range.Text = "t" + (cell.RowIndex - 2 + cell.ColumnIndex).ToString();
                             }
                         }
@@ -158,10 +159,15 @@ namespace GenerateDocument
                 //object filename = pathToDesktop + @"\testDoc.docx";
                 //wordDocument.Save();
                 wordDocument.SaveAs(ref filename);
+
+                // closing word doc
                 wordDocument.Close(ref missing, ref missing, ref missing);
                 wordDocument = null;
+                //wordDocument.Close(false);
                 wordApp.Quit(ref missing, ref missing, ref missing);
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(wordApp);
                 wordApp = null;
+
                 MessageBox.Show("Document created successfully !");
 
             }

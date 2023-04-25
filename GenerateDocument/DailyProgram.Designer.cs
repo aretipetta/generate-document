@@ -65,10 +65,10 @@ namespace GenerateDocument
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.label1.Location = new System.Drawing.Point(12, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(121, 36);
+            this.label1.Size = new System.Drawing.Size(130, 36);
             this.label1.TabIndex = 8;
             this.label1.Text = "Μέρα Χ";
             // 
@@ -87,7 +87,7 @@ namespace GenerateDocument
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(198, 35);
             this.button2.TabIndex = 13;
-            this.button2.Text = "Add exercise";
+            this.button2.Text = "Προσθήκη άσκησης";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 

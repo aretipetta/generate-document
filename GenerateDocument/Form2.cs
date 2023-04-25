@@ -39,7 +39,8 @@ namespace GenerateDocument
         {
             // apla gemizei ta combobox me ta swsta
             clearControls();
-            loadItems();
+            List<String> items = new List<string>(ConfigurationManager.AppSettings[categoryEnum.ToString()].Split(';'));
+            comboBox1.Items.AddRange(items.ToArray());
         }
 
         // an allaksei h timh sto 1o comboBox
@@ -50,7 +51,7 @@ namespace GenerateDocument
             if (comboBox1.SelectedIndex != -1)
             {
                 // pairnei to item tou comboBox1 kai psaxnei ta antistoixa apo to App.config
-                String muscleGroup = toEn(comboBox1.SelectedItem.ToString());
+                String muscleGroup = termToEn(comboBox1.SelectedItem.ToString());
                 List<String> items = new List<string>(ConfigurationManager.AppSettings[muscleGroup].Split(';'));
                 //comboBox1.Items.AddRange(items.ToArray());
                 comboBox2.Items.AddRange(items.ToArray());
@@ -75,22 +76,22 @@ namespace GenerateDocument
             }
         }
 
-
         // add excercise
         private void button4_Click(object sender, EventArgs e)
         {
-            // prwta apothikeush tou exercise sth lista kai emfanish sto gridView tis pisw form
+            // validation: all fields are required (except the first one)
+            if(!allFieldsAreRequired())
+            {
+                MessageBox.Show("Τα πεδία 'Muscle group', 'Description' και 'Equipement' είναι υποχρεωτικά.");
+                return;
+            } 
+
+            // apothikeush tou exercise sth lista kai emfanish sto gridView tis pisw form
             dailyProgram.addExerciseToTable(comboBox1.SelectedItem.ToString(), comboBox2.SelectedItem.ToString(), comboBox3.SelectedItem.ToString(),
                 (int)numericUpDown1.Value, (int)numericUpDown2.Value, (int)numericUpDown3.Value, richTextBox1.Text);
             // edw kanei clear ta controls tou panel3
+            comboBox1.SelectedIndex = -1;
             clearControls();
-        }
-
-        // load items to comboBoxes
-        private void loadItems()
-        {
-            List<String> items = new List<string>(ConfigurationManager.AppSettings[categoryEnum.ToString()].Split(';'));
-            comboBox1.Items.AddRange(items.ToArray());
         }
 
 
@@ -116,7 +117,7 @@ namespace GenerateDocument
         }
 
         // get the english terminology for a muscle group
-        public String toEn(String termInGreek)
+        public String termToEn(String termInGreek)
         {
             String termInEnglish = null;
             
@@ -133,6 +134,11 @@ namespace GenerateDocument
             return termInEnglish;
         }
 
+
+        public bool allFieldsAreRequired()
+        {
+            return (comboBox1.SelectedIndex != -1 && comboBox2.SelectedIndex != -1 && comboBox3.SelectedIndex != -1);
+        }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
