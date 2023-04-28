@@ -25,5 +25,24 @@ namespace GenerateDocument
         {
             Exercises.Add(new Exercise(muscleGroup, description, equipment, set, reps, rest, notes));
         }
+
+        public String[] listToRowVector()
+        {
+            List<Object> rowVectorList = new List<object>();
+            String[] items = new String[Enum.GetValues(typeof(ColumnEnum)).Length * exercises.Count];
+            int offset = Enum.GetValues(typeof(ColumnEnum)).Length;
+            int indexOfList = 0;
+            foreach(Exercise e in exercises)
+            {
+                items[offset * indexOfList] = e.MuscleGroup;
+                items[(offset * indexOfList) + 1] = e.Description;
+                items[(offset * indexOfList) + 2] = e.Equipment;
+                items[(offset * indexOfList) + 3] = e.Set.ToString();
+                items[(offset * indexOfList) + 4] = e.Reps.ToString();
+                items[(offset * indexOfList) + 5] = e.Rest.ToString();
+                items[(offset * indexOfList) + 6] = e.Notes;
+            }
+            return items;
+        }
     }
 }

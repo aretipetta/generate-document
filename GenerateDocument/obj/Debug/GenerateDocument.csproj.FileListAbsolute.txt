@@ -12,3 +12,7 @@ C:\Users\areti\Documents\my_projects\projects\GenerateDocument\GenerateDocument\
 C:\Users\areti\Documents\my_projects\projects\GenerateDocument\GenerateDocument\obj\Debug\GenerateDocument.Form2.resources
 C:\Users\areti\Documents\my_projects\projects\GenerateDocument\GenerateDocument\obj\Debug\GenerateDocument.DailyProgram.resources
 C:\Users\areti\Documents\my_projects\projects\GenerateDocument\GenerateDocument\obj\Debug\GenerateDocument.ExtractProgramForm.resources
+C:\Users\areti\Documents\my_projects\projects\GenerateDocument\GenerateDocument\bin\Debug\Aspose.Words.dll
+C:\Users\areti\Documents\my_projects\projects\GenerateDocument\GenerateDocument\bin\Debug\Aspose.Words.Pdf2Word.dll
+C:\Users\areti\Documents\my_projects\projects\GenerateDocument\GenerateDocument\bin\Debug\Aspose.Words.xml
+C:\Users\areti\Documents\my_projects\projects\GenerateDocument\GenerateDocument\obj\Debug\GenerateDocument.csproj.CopyComplete
