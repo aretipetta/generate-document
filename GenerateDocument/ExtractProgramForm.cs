@@ -55,7 +55,6 @@ namespace GenerateDocument
         // dhmiourgia programmatos kai extract .docx file
         private void button1_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("hello???");
             //letsSee();
             createDoc();
         }
@@ -113,7 +112,6 @@ namespace GenerateDocument
 
         public void createDoc()
         {
-            MessageBox.Show("wtf????");
             try
             {
 
@@ -122,22 +120,34 @@ namespace GenerateDocument
                 wordApp.Visible = false;
                 object missing = System.Reflection.Missing.Value;
                 Microsoft.Office.Interop.Word.Document wordDocument = wordApp.Documents.Add(ref missing, ref missing, ref missing, ref missing);
-                MessageBox.Show("Before sections");
+
                 foreach (Microsoft.Office.Interop.Word.Section section in wordDocument.Sections)
                 {
-                    //Get the header range and add the header details.  
+                    //Get the header range and add the header details.
                     Microsoft.Office.Interop.Word.Range headerRange = section.Headers[Microsoft.Office.Interop.Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
                     headerRange.Fields.Add(headerRange, Microsoft.Office.Interop.Word.WdFieldType.wdFieldPage);
                     headerRange.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
                     headerRange.Font.ColorIndex = Microsoft.Office.Interop.Word.WdColorIndex.wdBlue;
                     headerRange.Font.Size = 20;
                     headerRange.Text = "ΠΡΟΓΡΑΜΜΑ";
-                    //Get the footer range and add the footer details.  
+                    //Get the footer range and add the footer details.
                     Microsoft.Office.Interop.Word.Range footerRange = section.Footers[Microsoft.Office.Interop.Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
                     footerRange.Font.ColorIndex = Microsoft.Office.Interop.Word.WdColorIndex.wdDarkRed;
                     footerRange.Font.Size = 9;
                     footerRange.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
                     footerRange.Text = "for more send here: 'aretpett@gmail.com'    please, no dp :)";
+                }
+
+                // add as paragraphs as the programs
+                List<Microsoft.Office.Interop.Word.Paragraph> paragraphs = new List<Microsoft.Office.Interop.Word.Paragraph>();
+                for(int i = 0; i < days; i++)
+                {
+                    Microsoft.Office.Interop.Word.Paragraph par = wordDocument.Content.Paragraphs.Add(ref missing);
+                    Object styleHeading1 = Microsoft.Office.Interop.Word.WdBuiltinStyle.wdStyleHeading1;
+                    par.Range.set_Style(ref styleHeading1);
+                    par.Range.Text = "Πρόγραμμα " + (i + 1) + ": " + tablesOfProgram[i].Category;
+                    par.Range.InsertParagraphAfter();
+                    paragraphs.Add(par);
                 }
 
                 //adding text to document  
@@ -148,25 +158,24 @@ namespace GenerateDocument
 
                 for (int i = 0; i < days; i++)
                 {
-                    MessageBox.Show("table " + i);
                     // add header
                     //Add paragraph with Heading 1 style  
-                    Microsoft.Office.Interop.Word.Paragraph para1 = wordDocument.Content.Paragraphs.Add(ref missing);
+                  //  Microsoft.Office.Interop.Word.Paragraph para1 = wordDocument.Content.Paragraphs.Add(ref missing);
 
                     //object styleHeading1 = "Επικεφαλίδα 1";
                     TableOfProgram tbl = tablesOfProgram[i]; // the whole table with exercises
-                    Object styleHeading1 = Microsoft.Office.Interop.Word.WdBuiltinStyle.wdStyleHeading1;
-                    para1.Range.set_Style(ref styleHeading1);
-                    para1.Range.Text = "Πρόγραμμα " + (i + 1) + ": " + tbl.Category;
-                    para1.Range.InsertParagraphAfter();
+                    //Object styleHeading1 = Microsoft.Office.Interop.Word.WdBuiltinStyle.wdStyleHeading1;
+                    //para1.Range.set_Style(ref styleHeading1);
+                    //para1.Range.Text = "Πρόγραμμα " + (i + 1) + ": " + tbl.Category;
+                    //para1.Range.InsertParagraphAfter();
 
                     // create table
-                    //Create a table and insert some dummy record  
-                    Microsoft.Office.Interop.Word.Table firstTable = wordDocument.Tables.Add(para1.Range, tbl.Exercises.Count + 1, Enum.GetValues(typeof(ColumnEnum)).Length, ref missing, ref missing);
+                    //Create a table and insert some dummy records  
+                    Microsoft.Office.Interop.Word.Table firstTable = wordDocument.Tables.Add(paragraphs[i].Range, tbl.Exercises.Count + 1, Enum.GetValues(typeof(ColumnEnum)).Length, ref missing, ref missing);
                     firstTable.Borders.Enable = 1;
                     String[] exercisesToRowVector = tbl.listToRowVector();
                     MessageBox.Show("lenght = " + exercisesToRowVector.Length);
-                    int counter = 0; 
+                    int counter = 0;
                     int idxRow = 0;
                     foreach (Microsoft.Office.Interop.Word.Row row in firstTable.Rows)
                     {
@@ -190,6 +199,7 @@ namespace GenerateDocument
                         }
                         else // data rows
                         {
+                            MessageBox.Show("row with data");
                             int idxCol = 0;
                             //String[] rowValues = new string[Enum.GetValues(typeof(ColumnEnum)).Length];
                             //rowValues[0] = tbl.Exercises[idxRow].MuscleGroup;
@@ -211,7 +221,7 @@ namespace GenerateDocument
 
                             foreach (Microsoft.Office.Interop.Word.Cell cell in row.Cells)
                             {
-                                Microsoft.Office.Interop.Word.Range range = wordDocument.Paragraphs.Add().Range;
+                                //   Microsoft.Office.Interop.Word.Range range = wordDocument.Paragraphs.Add().Range;
                                 // get the exercise under the specific table
                                 //Exercise exercise = tbl.Exercises[cell.RowIndex]; // the exact record that has to be added on doc's table
                                 // todo: add all exercises to a vector
@@ -220,13 +230,11 @@ namespace GenerateDocument
                                 //    + tbl.Exercises[cell.RowIndex].Set + tbl.Exercises[cell.RowIndex].Reps + tbl.Exercises[cell.RowIndex].Rest + tbl.Exercises[cell.RowIndex].Notes;
 
                                 //cell.Range.Text = rowValues[idxCol];
-                                MessageBox.Show("counter = " + counter);
-                                cell.Range.Text = exercisesToRowVector[counter];
-                                MessageBox.Show("counter meta = " + counter);
+                                MessageBox.Show("row = " + exercisesToRowVector[counter]);
+                                cell.Range.Text = counter.ToString(); //exercisesToRowVector[counter];
                                 counter++;
                                 idxCol++;
                             }
-                            wordDocument.Content.Text = Environment.NewLine + "telos programmatos";
                         }
                         idxRow++;
 
@@ -268,7 +276,6 @@ namespace GenerateDocument
 
                     }
                     // telos programmatos
-                    // TODOOOOOOOOOoo
                 }
 
                 ////Add paragraph with Heading 2 style  

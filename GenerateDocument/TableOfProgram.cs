@@ -28,7 +28,6 @@ namespace GenerateDocument
 
         public String[] listToRowVector()
         {
-            List<Object> rowVectorList = new List<object>();
             String[] items = new String[Enum.GetValues(typeof(ColumnEnum)).Length * exercises.Count];
             int offset = Enum.GetValues(typeof(ColumnEnum)).Length;
             int indexOfList = 0;
