@@ -70,7 +70,7 @@ namespace GenerateDocument
                 Microsoft.Office.Interop.Word.Document wordDocument = wordApp.Documents.Add(ref missing, ref missing, ref missing, ref missing);
                 wordDocument.PageSetup.TopMargin = (float)0.5;
                 wordDocument.PageSetup.BottomMargin = (float)0.5;
-                wordDocument.PageSetup.LeftMargin = (float)4.5;
+                wordDocument.PageSetup.LeftMargin = (float)3.5;
                 wordDocument.PageSetup.RightMargin = (float)3.5;
 
                 foreach (Microsoft.Office.Interop.Word.Section section in wordDocument.Sections)
@@ -87,7 +87,7 @@ namespace GenerateDocument
                     footerRange.Font.ColorIndex = Microsoft.Office.Interop.Word.WdColorIndex.wdDarkRed;
                     footerRange.Font.Size = 9;
                     footerRange.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
-                    footerRange.Text = "for more send here: 'aretpett@gmail.com'    please, no dp :)";
+                    footerRange.Text = "Program";
                 }
 
                 //adding text to document  
@@ -102,7 +102,7 @@ namespace GenerateDocument
                     Microsoft.Office.Interop.Word.Paragraph par = wordDocument.Content.Paragraphs.Add(ref missing);
                     Object styleHeading1 = Microsoft.Office.Interop.Word.WdBuiltinStyle.wdStyleHeading1;
                     par.Range.set_Style(ref styleHeading1);
-                    par.Range.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphJustify;
+                    par.Range.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphJustifyMed;
                     par.Range.Text = Environment.NewLine + "Πρόγραμμα " + (i + 1) + ": " + tablesOfProgram[i].Category + Environment.NewLine;
                     par.Range.InsertParagraphAfter();
 
@@ -110,7 +110,6 @@ namespace GenerateDocument
                     //Create a table and insert some dummy records
                     Microsoft.Office.Interop.Word.Table firstTable = wordDocument.Tables.Add(par.Range, tbl.Exercises.Count + 1, Enum.GetValues(typeof(ColumnEnum)).Length, ref missing, ref missing);
                     firstTable.Borders.Enable = 1;
-
                     String[] exercisesToRowVector = tbl.listToRowVector();
                     int counter = 0;
                     int idxRow = 0;
@@ -140,7 +139,8 @@ namespace GenerateDocument
                             MessageBox.Show("Data");
                             foreach (Microsoft.Office.Interop.Word.Cell cell in row.Cells)
                             {
-                                cell.Range.Font.Size = 10;
+                                if (cell.ColumnIndex > 2 && cell.ColumnIndex < 7) cell.Column.AutoFit();
+                                cell.Range.Font.Size = 9;
                                 cell.Column.AutoFit();
                                 cell.SetWidth(cell.Column.Width, Microsoft.Office.Interop.Word.WdRulerStyle.wdAdjustProportional);
                                 cell.Range.Text = exercisesToRowVector[counter];
