@@ -40,6 +40,7 @@ namespace GenerateDocument
                 items[(offset * indexOfList) + 4] = e.Reps.ToString();
                 items[(offset * indexOfList) + 5] = e.Rest.ToString();
                 items[(offset * indexOfList) + 6] = e.Notes;
+                indexOfList++;
             }
             return items;
         }
