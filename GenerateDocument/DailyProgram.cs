@@ -130,6 +130,19 @@ namespace GenerateDocument
             extractProgramForm.Show();
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            // exit button
+            Application.Exit();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            // go back
+            form1.Show();
+            this.Close();
+        }
+
         public void addExerciseToTable(String muscleGroup, String description, String equipment, int set, int reps, int rest, String notes)
         {
             // prosthetei ena row sto datagridView ths day meras

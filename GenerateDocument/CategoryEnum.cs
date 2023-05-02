@@ -9,6 +9,7 @@ namespace GenerateDocument
     public enum CategoryEnum
     {
         UPPER_BODY = 1, 
-        LEGS = 2
+        LEGS = 2,
+        MIX = 3
     }
 }

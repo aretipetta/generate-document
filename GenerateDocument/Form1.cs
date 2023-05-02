@@ -63,7 +63,7 @@ namespace GenerateDocument
                 {
                     foreach(Control c2 in panel.Controls)
                     {
-                        if(c2 is ComboBox comboBox) comboBox.Items.AddRange(new object[] { CategoryEnum.UPPER_BODY, CategoryEnum.LEGS });
+                        if(c2 is ComboBox comboBox) comboBox.Items.AddRange(new object[] { CategoryEnum.UPPER_BODY, CategoryEnum.LEGS, CategoryEnum.MIX});
                     }
                     temp.Add(panel);
                 }

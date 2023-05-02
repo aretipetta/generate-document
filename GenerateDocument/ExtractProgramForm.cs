@@ -3,8 +3,10 @@ using Aspose.Words.Tables;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -107,57 +109,116 @@ namespace GenerateDocument
                     par.Range.InsertParagraphAfter();
 
                     // create table
-                    //Create a table and insert some dummy records
-                    Microsoft.Office.Interop.Word.Table firstTable = wordDocument.Tables.Add(par.Range, tbl.Exercises.Count + 1, Enum.GetValues(typeof(ColumnEnum)).Length, ref missing, ref missing);
-                    firstTable.Borders.Enable = 1;
+                    //Create a table and insert some dummy records (rows: +1 for headers and +3 for aerobic/stretching before and after)
+                    Microsoft.Office.Interop.Word.Table table = wordDocument.Tables.Add(par.Range, tbl.Exercises.Count + 1 + 3, Enum.GetValues(typeof(ColumnEnum)).Length, ref missing, ref missing);
+                    table.Borders.Enable = 1;
+                    //table.AutoFitBehavior(Microsoft.Office.Interop.Word.WdAutoFitBehavior.wdAutoFitWindow); //.wdAutoFitWindow
+                  //  table.PreferredWidthType = Microsoft.Office.Interop.Word.WdPreferredWidthType.wdPreferredWidthPercent; // wordDocument.Sections[0].PageSetup.PageWidth - 20;
+                    //firstTable.PreferredWidth = 30;
                     String[] exercisesToRowVector = tbl.listToRowVector();
                     int counter = 0;
                     int idxRow = 0;
-                    foreach (Microsoft.Office.Interop.Word.Row row in firstTable.Rows)
+                    foreach (Microsoft.Office.Interop.Word.Row row in table.Rows)
                     {
                         // header row of table
                         if (row.Index == 1)
                         {
                             foreach (Microsoft.Office.Interop.Word.Cell cell in row.Cells)
                             {
+                                if ((cell.ColumnIndex > 3 && cell.ColumnIndex < 7) || cell.ColumnIndex == 1) cell.Column.AutoFit();
+                                //else cell.SetWidth(cell.Column.Width, Microsoft.Office.Interop.Word.WdRulerStyle.wdAdjustProportional);
                                 cell.Range.Text = ((ColumnEnum)cell.ColumnIndex).ToString();
                                 cell.Range.Font.Bold = 1;
+                              //  cell.Range.Font.Size = 8;
                                 //other format properties goes here  
                                 //cell.Range.Font.Name = "verdana";
-                                //cell.Range.Font.Size = 8;
-                                cell.Column.AutoFit();
-                                cell.SetWidth(cell.Column.Width, Microsoft.Office.Interop.Word.WdRulerStyle.wdAdjustProportional);
+                                //   cell.Column.AutoFit();
+
                                 //cell.Range.Font.ColorIndex = WdColorIndex.wdGray25;                              
-                                cell.Shading.BackgroundPatternColor = Microsoft.Office.Interop.Word.WdColor.wdColorGray25;
+                                cell.Shading.BackgroundPatternColor = Microsoft.Office.Interop.Word.WdColor.wdColorYellow;
                                 //Center alignment for the Header cells  
                                 cell.VerticalAlignment = Microsoft.Office.Interop.Word.WdCellVerticalAlignment.wdCellAlignVerticalCenter;
                                 cell.Range.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
                             }
                         }
-                        else // data rows
+                        else if(row.Index == 2) // prothermansi
                         {
-                            MessageBox.Show("Data");
+                            List<String> items = new List<string>(ConfigurationManager.AppSettings["WARM-UP"].Split(';'));
+                            int j = 0;
                             foreach (Microsoft.Office.Interop.Word.Cell cell in row.Cells)
                             {
-                                if (cell.ColumnIndex > 2 && cell.ColumnIndex < 7) cell.Column.AutoFit();
+                                if (cell.ColumnIndex > 3 && cell.ColumnIndex < 7) cell.Column.AutoFit();
+                                //else cell.SetWidth(cell.Column.Width, Microsoft.Office.Interop.Word.WdRulerStyle.wdAdjustProportional);
                                 cell.Range.Font.Size = 9;
-                                cell.Column.AutoFit();
-                                cell.SetWidth(cell.Column.Width, Microsoft.Office.Interop.Word.WdRulerStyle.wdAdjustProportional);
+                                cell.Range.Text = items[j];
+                                j++;
+                            }
+                        }
+                        else if(row.Index == tbl.Exercises.Count + 3)
+                        {
+                            List<String> items = new List<string>(ConfigurationManager.AppSettings["AEROBIC"].Split(';'));
+                            int j = 0;
+                            foreach (Microsoft.Office.Interop.Word.Cell cell in row.Cells)
+                            {
+                                if (cell.ColumnIndex > 3 && cell.ColumnIndex < 7) cell.Column.AutoFit();
+                                //else cell.SetWidth(cell.Column.Width, Microsoft.Office.Interop.Word.WdRulerStyle.wdAdjustProportional);
+                                cell.Range.Font.Size = 9;
+                                cell.Range.Text = items[j];
+                                j++;
+                            }
+                        }
+                        else if(row.Index == tbl.Exercises.Count + 4)
+                        {
+                            List<String> items = new List<string>(ConfigurationManager.AppSettings["STRETCHING"].Split(';'));
+                            int j = 0;
+                            foreach (Microsoft.Office.Interop.Word.Cell cell in row.Cells)
+                            {
+                                if (cell.ColumnIndex > 3 && cell.ColumnIndex < 7) cell.Column.AutoFit();
+                                //else cell.SetWidth(cell.Column.Width, Microsoft.Office.Interop.Word.WdRulerStyle.wdAdjustProportional);
+                                cell.Range.Font.Size = 9;
+                                cell.Range.Text = items[j];
+                                j++;
+                            }
+                        }
+                        else // data rows
+                        {
+                            foreach (Microsoft.Office.Interop.Word.Cell cell in row.Cells)
+                            {
+                                if (cell.ColumnIndex > 3 && cell.ColumnIndex < 7) cell.Column.AutoFit();
+                                //else cell.SetWidth(cell.Column.Width, Microsoft.Office.Interop.Word.WdRulerStyle.wdAdjustProportional);
+                                cell.Range.Font.Size = 9;
+                                //cell.Column.AutoFit();
+                                
                                 cell.Range.Text = exercisesToRowVector[counter];
                                 counter++;
                             }
                         }
                         idxRow++;
                     }
+                    table.AutoFitBehavior(Microsoft.Office.Interop.Word.WdAutoFitBehavior.wdAutoFitWindow);
                 }
+
+                
+
+                // add to the top new row for aerobic
+                //foreach(Table table in wordDocument.Tables)
+                //{
+
+                //}
+
+
+
+
 
                 //Save the document  
                 //string pathToDesktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);  TODO: this doesn't work
                 //object filename = @"c:\temp1.docx";
-                object filename = @"C:\Users\areti\Desktop\testDoc.doc";
+                string filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "MyDoc.docx");
+
+               // object filename = @"C:\Users\areti\Desktop\testDoc.doc";
                 //object filename = pathToDesktop + @"\testDoc.docx";
                 //wordDocument.Save();
-                wordDocument.SaveAs(ref filename);
+                wordDocument.SaveAs(filePath);
 
                 // closing word doc
                 wordDocument.Close(ref missing, ref missing, ref missing);
@@ -168,16 +229,20 @@ namespace GenerateDocument
                 wordApp = null;
 
                 MessageBox.Show("Document created successfully !");
-                this.Enabled = true;
-                // return stin prohgoumenh 
-                dailyProgram.Show();
-                this.Close();
-                dailyProgram.Enabled = true;
+                // return stin prohgoumenh
+                button2.PerformClick();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            // cancel button
+            dailyProgram.Enabled = true;
+            this.Close();
         }
     }
 }
