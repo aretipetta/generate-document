@@ -88,7 +88,7 @@ namespace GenerateDocument
 
             // apothikeush tou exercise sth lista kai emfanish sto gridView tis pisw form
             dailyProgram.addExerciseToTable(comboBox1.SelectedItem.ToString(), comboBox2.SelectedItem.ToString(), comboBox3.SelectedItem.ToString(),
-                (int)numericUpDown1.Value, (int)numericUpDown2.Value, (int)numericUpDown3.Value, richTextBox1.Text);
+                (int)numericUpDown1.Value, (int)numericUpDown2.Value, (int)numericUpDown3.Value, richTextBox1.Text.Trim());
             // edw kanei clear ta controls tou panel3
             comboBox1.SelectedIndex = -1;
             clearControls();

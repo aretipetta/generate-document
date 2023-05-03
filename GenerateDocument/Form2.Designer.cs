@@ -30,6 +30,9 @@ namespace GenerateDocument
         private void InitializeComponent()
         {
             this.panel3 = new System.Windows.Forms.Panel();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.button4 = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -46,9 +49,6 @@ namespace GenerateDocument
             this.label6 = new System.Windows.Forms.Label();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.button1 = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
@@ -80,6 +80,36 @@ namespace GenerateDocument
             this.panel3.Size = new System.Drawing.Size(497, 457);
             this.panel3.TabIndex = 15;
             // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.label10.Location = new System.Drawing.Point(3, 426);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(132, 17);
+            this.label10.TabIndex = 17;
+            this.label10.Text = "*max break 120 sec";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.label9.Location = new System.Drawing.Point(3, 409);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(90, 17);
+            this.label9.TabIndex = 16;
+            this.label9.Text = "*max reps 25";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.label1.Location = new System.Drawing.Point(3, 392);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(88, 17);
+            this.label1.TabIndex = 15;
+            this.label1.Text = "*max sets 20";
+            // 
             // button4
             // 
             this.button4.Location = new System.Drawing.Point(394, 414);
@@ -96,7 +126,7 @@ namespace GenerateDocument
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Location = new System.Drawing.Point(102, 17);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(244, 24);
+            this.comboBox1.Size = new System.Drawing.Size(303, 24);
             this.comboBox1.TabIndex = 0;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
@@ -141,7 +171,7 @@ namespace GenerateDocument
             this.comboBox2.FormattingEnabled = true;
             this.comboBox2.Location = new System.Drawing.Point(102, 47);
             this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(244, 24);
+            this.comboBox2.Size = new System.Drawing.Size(303, 24);
             this.comboBox2.TabIndex = 3;
             this.comboBox2.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
             // 
@@ -181,7 +211,7 @@ namespace GenerateDocument
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(3, 167);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(68, 21);
+            this.label7.Size = new System.Drawing.Size(54, 17);
             this.label7.TabIndex = 10;
             this.label7.Text = "Break *";
             // 
@@ -191,7 +221,7 @@ namespace GenerateDocument
             this.comboBox3.FormattingEnabled = true;
             this.comboBox3.Location = new System.Drawing.Point(102, 77);
             this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(244, 24);
+            this.comboBox3.Size = new System.Drawing.Size(303, 24);
             this.comboBox3.TabIndex = 5;
             // 
             // numericUpDown2
@@ -221,7 +251,7 @@ namespace GenerateDocument
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(3, 111);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(56, 21);
+            this.label5.Size = new System.Drawing.Size(45, 17);
             this.label5.TabIndex = 6;
             this.label5.Text = "Sets *";
             // 
@@ -230,7 +260,7 @@ namespace GenerateDocument
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(3, 139);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(63, 21);
+            this.label6.Size = new System.Drawing.Size(50, 17);
             this.label6.TabIndex = 8;
             this.label6.Text = "Reps *";
             // 
@@ -265,36 +295,6 @@ namespace GenerateDocument
             this.button1.Text = "Ακύρωση";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.label1.Location = new System.Drawing.Point(3, 392);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(88, 17);
-            this.label1.TabIndex = 15;
-            this.label1.Text = "*max sets 20";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.label9.Location = new System.Drawing.Point(3, 409);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(90, 17);
-            this.label9.TabIndex = 16;
-            this.label9.Text = "*max reps 25";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.label10.Location = new System.Drawing.Point(3, 426);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(132, 17);
-            this.label10.TabIndex = 17;
-            this.label10.Text = "*max break 120 sec";
             // 
             // Form2
             // 

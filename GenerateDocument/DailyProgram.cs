@@ -139,6 +139,7 @@ namespace GenerateDocument
         private void button4_Click(object sender, EventArgs e)
         {
             // go back
+            form1.setControls();
             form1.Show();
             this.Close();
         }

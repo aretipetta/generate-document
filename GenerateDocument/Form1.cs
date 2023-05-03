@@ -54,16 +54,26 @@ namespace GenerateDocument
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            setControls();
+        }
+
+        public void setControls()
+        {
             // prwta ola einai invisible
             panels = new List<Panel>();
+            numericUpDown1.Value = 1;
             List<Panel> temp = new List<Panel>();
             foreach (Control c in this.Controls)
             {
                 if (c is Panel panel)
                 {
-                    foreach(Control c2 in panel.Controls)
+                    foreach (Control c2 in panel.Controls)
                     {
-                        if(c2 is ComboBox comboBox) comboBox.Items.AddRange(new object[] { CategoryEnum.UPPER_BODY, CategoryEnum.LEGS, CategoryEnum.MIX});
+                        if (c2 is ComboBox comboBox)
+                        {
+                            comboBox.Items.Clear();
+                            comboBox.Items.AddRange(new object[] { CategoryEnum.UPPER_BODY, CategoryEnum.LEGS, CategoryEnum.MIX });
+                        }
                     }
                     temp.Add(panel);
                 }
@@ -72,7 +82,6 @@ namespace GenerateDocument
             temp.ForEach(p => p.Visible = false);
             panels = temp.OrderBy(p => p.Name).ToList();
             button1.Visible = false;
-
         }
 
         // ok button

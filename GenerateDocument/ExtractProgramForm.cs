@@ -17,8 +17,10 @@ namespace GenerateDocument
 {
     public partial class ExtractProgramForm : Form
     {
-        Regex rgx = new Regex(@"^[a-zA-Z0-9]{1, 50}$");
-        //String rgx = "^[a-zA-Z0-9]$";
+        String docNameValidation = "^[a-zA-Z]+[a-zA-Z0-9]*$";
+        String nameValidation = "^[a-zA-Z]+(\\s?[a-zA-Z]+){0,3}$";
+        String goalValidation = "^[a-zA-Z]+(\\s?[a-zA-Z]+)*$";
+        String dateValidation = "^([0-9]{1,2}/){2}[0-9]{4}$";
 
         DailyProgram dailyProgram;
         int days;
@@ -32,22 +34,6 @@ namespace GenerateDocument
             InitializeComponent();
         }
 
-        private void textBox1_Validating(object sender, CancelEventArgs e)
-        {
-            if(!System.Text.RegularExpressions.Regex.IsMatch(textBox1.Text, "^[a-zA-Z0-9]"))
-            {
-                errorProvider1.SetError(textBox1, "Μη έγκυρο όνομα.");
-                MessageBox.Show("invalid");
-            }
-            else
-            {
-                errorProvider1.SetError(textBox1, null);
-                MessageBox.Show("einai ok");
-            }
-        }
-        // todo: fix validation
-
-
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
             dailyProgram.Enabled = true;
@@ -57,8 +43,58 @@ namespace GenerateDocument
         // dhmiourgia programmatos kai extract .docx file
         private void button1_Click(object sender, EventArgs e)
         {
+            if (!Regex.IsMatch(textBox1.Text.Trim(), "^[a-zA-Z]+[a-zA-Z0-9]*$"))
+            {
+                //errorProvider1.SetError(textBox1, "Μη έγκυρο όνομα.");
+
+                MessageBox.Show("invalid input.");
+                return;
+            }
+
             this.Enabled = false;
             createDoc();
+        }
+
+        protected void validateInputs()
+        {
+            if(!(textBox1.Text.Trim() != null && textBox2.Text.Trim() != null && textBox3.Text.Trim() != null && textBox4.Text.Trim() != null && textBox5.Text.Trim() != null && textBox6.Text.Trim() != null
+                && textBox7.Text.Trim() != null))
+            {
+                MessageBox.Show("Όλα τα πεδία είναι υποχρεωτικά.");
+                return;
+            }
+            // else validate data
+            if(!Regex.IsMatch(textBox2.Text.Trim(), nameValidation))
+            {
+                MessageBox.Show("Μη έγκυρο όνομα στο πεδίο 'Υπεύθυνος/η γυμναστής/τρια'.");
+                return;
+            }
+            if (!Regex.IsMatch(textBox3.Text.Trim(), nameValidation))
+            {
+                MessageBox.Show("Μη έγκυρο όνομα στο πεδίο 'Ονοματεπώνυμο συνδρομητή/ριας'.");
+                return;
+            }
+            if (!Regex.IsMatch(textBox4.Text.Trim(), goalValidation))
+            {
+                MessageBox.Show("Μη έγκυρη εισαγωγή στόχου προγράμματος.");
+                return;
+            }
+            if (!Regex.IsMatch(textBox6.Text.Trim(), dateValidation))
+            {
+                MessageBox.Show("Μη έγκυρη ημερομηνία έναρξης προγράμματος.");
+                return;
+            }
+            if (!Regex.IsMatch(textBox7.Text.Trim(), dateValidation))
+            {
+                MessageBox.Show("Μη έγκυρη ημερομηνία λήξης προγράμματος.");
+                return;
+            }
+            if (!Regex.IsMatch(textBox5.Text.Trim(), "TODO"))
+            {
+                MessageBox.Show("Μη έγκυρη ηλικία συνδρομητή/ριας.");
+                return;
+            }
+
         }
 
         public void createDoc()
@@ -89,7 +125,7 @@ namespace GenerateDocument
                     footerRange.Font.ColorIndex = Microsoft.Office.Interop.Word.WdColorIndex.wdDarkRed;
                     footerRange.Font.Size = 9;
                     footerRange.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
-                    footerRange.Text = "Program";
+                    footerRange.Text = ":)";
                 }
 
                 //adding text to document  
@@ -198,22 +234,11 @@ namespace GenerateDocument
                     table.AutoFitBehavior(Microsoft.Office.Interop.Word.WdAutoFitBehavior.wdAutoFitWindow);
                 }
 
-                
-
-                // add to the top new row for aerobic
-                //foreach(Table table in wordDocument.Tables)
-                //{
-
-                //}
-
-
-
-
 
                 //Save the document  
                 //string pathToDesktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);  TODO: this doesn't work
                 //object filename = @"c:\temp1.docx";
-                string filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "MyDoc.docx");
+                string filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), textBox1.Text.Trim() + ".docx");
 
                // object filename = @"C:\Users\areti\Desktop\testDoc.doc";
                 //object filename = pathToDesktop + @"\testDoc.docx";
@@ -230,7 +255,8 @@ namespace GenerateDocument
 
                 MessageBox.Show("Document created successfully !");
                 // return stin prohgoumenh
-                button2.PerformClick();
+                dailyProgram.Enabled = true;
+                this.Close();
             }
             catch (Exception ex)
             {
