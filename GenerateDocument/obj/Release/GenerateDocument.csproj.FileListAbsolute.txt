@@ -1,0 +1,14 @@
+C:\Users\areti\Documents\my_projects\projects\GenerateDocument\GenerateDocument\bin\Release\GenerateDocument.exe.config
+C:\Users\areti\Documents\my_projects\projects\GenerateDocument\GenerateDocument\bin\Release\GenerateDocument.exe
+C:\Users\areti\Documents\my_projects\projects\GenerateDocument\GenerateDocument\bin\Release\GenerateDocument.pdb
+C:\Users\areti\Documents\my_projects\projects\GenerateDocument\GenerateDocument\obj\Release\GenerateDocument.csproj.AssemblyReference.cache
+C:\Users\areti\Documents\my_projects\projects\GenerateDocument\GenerateDocument\obj\Release\GenerateDocument.csproj.ResolveComReference.cache
+C:\Users\areti\Documents\my_projects\projects\GenerateDocument\GenerateDocument\obj\Release\GenerateDocument.DailyProgram.resources
+C:\Users\areti\Documents\my_projects\projects\GenerateDocument\GenerateDocument\obj\Release\GenerateDocument.ExtractProgramForm.resources
+C:\Users\areti\Documents\my_projects\projects\GenerateDocument\GenerateDocument\obj\Release\GenerateDocument.Form1.resources
+C:\Users\areti\Documents\my_projects\projects\GenerateDocument\GenerateDocument\obj\Release\GenerateDocument.Form2.resources
+C:\Users\areti\Documents\my_projects\projects\GenerateDocument\GenerateDocument\obj\Release\GenerateDocument.Properties.Resources.resources
+C:\Users\areti\Documents\my_projects\projects\GenerateDocument\GenerateDocument\obj\Release\GenerateDocument.csproj.GenerateResource.cache
+C:\Users\areti\Documents\my_projects\projects\GenerateDocument\GenerateDocument\obj\Release\GenerateDocument.csproj.CoreCompileInputs.cache
+C:\Users\areti\Documents\my_projects\projects\GenerateDocument\GenerateDocument\obj\Release\GenerateDocument.exe
+C:\Users\areti\Documents\my_projects\projects\GenerateDocument\GenerateDocument\obj\Release\GenerateDocument.pdb
