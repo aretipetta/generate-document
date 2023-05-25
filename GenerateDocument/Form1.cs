@@ -43,7 +43,7 @@ namespace GenerateDocument
                 // pairnei tis times apo ta comboBoxes gia th lista pou tha steilei sthn next form
                 foreach (Control c in panels[i].Controls)
                 {
-                    if (c is ComboBox comboBox) categoryPerDay.Add((CategoryEnum)((ComboBox)c).SelectedItem);
+                    if (c is ComboBox comboBox) categoryPerDay.Add((CategoryEnum)((ComboBox)c).SelectedIndex + 1);
                 }
             }
             // go to daily program
@@ -72,7 +72,10 @@ namespace GenerateDocument
                         if (c2 is ComboBox comboBox)
                         {
                             comboBox.Items.Clear();
-                            comboBox.Items.AddRange(new object[] { CategoryEnum.UPPER_BODY, CategoryEnum.LEGS, CategoryEnum.MIX });
+                            comboBox.Items.AddRange(new object[] {
+                                CategoryProcess.categoryEnumToGreek(CategoryEnum.UPPER_BODY), 
+                                CategoryProcess.categoryEnumToGreek(CategoryEnum.LEGS), 
+                                CategoryProcess.categoryEnumToGreek(CategoryEnum.MIX) });
                         }
                     }
                     temp.Add(panel);

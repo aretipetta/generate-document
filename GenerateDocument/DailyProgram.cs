@@ -67,7 +67,7 @@ namespace GenerateDocument
         {
             dataGridViews[counter].Visible = false;
             counter--;
-            label1.Text = "Μέρα " + (counter + 1) + ": " + categoryPerDay[counter];
+            label1.Text = "Μέρα " + (counter + 1) + ": " + CategoryProcess.categoryEnumToGreek(categoryPerDay[counter]); //categoryPerDay[counter];
             dataGridViews[counter].Visible = true;
             if (counter == 0) pictureBox1.Visible = false;
             if (counter == days - 2) pictureBox2.Visible = true;
@@ -80,7 +80,7 @@ namespace GenerateDocument
         {
             dataGridViews[counter].Visible = false;
             counter++;
-            label1.Text = "Μέρα " + (counter + 1) + ": " + categoryPerDay[counter];
+            label1.Text = "Μέρα " + (counter + 1) + ": " + CategoryProcess.categoryEnumToGreek(categoryPerDay[counter]); //categoryPerDay[counter];
             dataGridViews[counter].Visible = true;
             if (counter + 1 == days) pictureBox2.Visible = false;
             if (counter == 1) pictureBox1.Visible = true;
@@ -100,7 +100,7 @@ namespace GenerateDocument
         private void DailyProgram_Load(object sender, EventArgs e)
         {
             counter = 0;
-            label1.Text = "Μέρα 1: " + categoryPerDay[counter];
+            label1.Text = "Μέρα 1: " + CategoryProcess.categoryEnumToGreek(categoryPerDay[counter]); //categoryPerDay[counter];
             pictureBox1.Visible = false;
             pictureBox2.Visible = false;
             if (days > 1) pictureBox2.Visible = true;

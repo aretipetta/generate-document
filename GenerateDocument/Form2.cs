@@ -120,8 +120,6 @@ namespace GenerateDocument
         public String termToEn(String termInGreek)
         {
             String termInEnglish = null;
-            
-
             foreach (TerminologyEnum term in Enum.GetValues(typeof(TerminologyEnum)))
             {
                 FieldInfo fi = TerminologyEnum.ABS.GetType().GetField(term.ToString());

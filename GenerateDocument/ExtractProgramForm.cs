@@ -8,6 +8,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -115,9 +116,9 @@ namespace GenerateDocument
                     Microsoft.Office.Interop.Word.Range headerRange = section.Headers[Microsoft.Office.Interop.Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
                     headerRange.Fields.Add(headerRange, Microsoft.Office.Interop.Word.WdFieldType.wdFieldPage);
                     headerRange.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
-                    headerRange.Font.ColorIndex = Microsoft.Office.Interop.Word.WdColorIndex.wdBlue;
-                    headerRange.Font.Size = 20;
-                    headerRange.Text = "ΠΡΟΓΡΑΜΜΑ";
+                    headerRange.Font.ColorIndex = Microsoft.Office.Interop.Word.WdColorIndex.wdBlack;
+                    headerRange.Font.Size = 40;
+                    headerRange.Text = "ALTER LIFE";
                     //Get the footer range and add the footer details.
                     Microsoft.Office.Interop.Word.Range footerRange = section.Footers[Microsoft.Office.Interop.Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
                     footerRange.Font.ColorIndex = Microsoft.Office.Interop.Word.WdColorIndex.wdDarkRed;
@@ -132,7 +133,7 @@ namespace GenerateDocument
                 Object styleHeading = Microsoft.Office.Interop.Word.WdBuiltinStyle.wdStyleHeading1;
                 p.Range.set_Style(ref styleHeading);
                 p.Range.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphJustifyMed;
-                p.Range.Text = Environment.NewLine + "ΣΤΟΙΧΕΙΑ";
+                p.Range.Text = Environment.NewLine + "Στοιχεία";
                 p.Range.InsertParagraphAfter();
 
                 Microsoft.Office.Interop.Word.Table t = wordDocument.Tables.Add(p.Range, 6, 2, ref missing, ref missing); // 6 rows for details (names, age etc) and 2 columns (key-value)
@@ -148,21 +149,26 @@ namespace GenerateDocument
                         {
                             cell.Range.Text = labels[idx];
                             cell.Range.Font.Bold = 1;
-                            cell.Shading.BackgroundPatternColor = Microsoft.Office.Interop.Word.WdColor.wdColorYellow;
+                            cell.Shading.BackgroundPatternColor = (cell.RowIndex % 2 == 0) ? Microsoft.Office.Interop.Word.WdColor.wdColorLightYellow
+                                : Microsoft.Office.Interop.Word.WdColor.wdColorYellow;
                             cell.VerticalAlignment = Microsoft.Office.Interop.Word.WdCellVerticalAlignment.wdCellAlignVerticalCenter;
                             cell.Range.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
                         }
                         else if (cell.ColumnIndex == 2)
                         {
                             cell.Range.Text = detailsFromForm[idx];
+                            cell.Shading.BackgroundPatternColor = (cell.RowIndex % 2 == 0) ? Microsoft.Office.Interop.Word.WdColor.wdColorGray05
+                                : Microsoft.Office.Interop.Word.WdColor.wdColorGray10;
                         }
+                        cell.Range.Font.Size = 9;
+                        cell.Column.AutoFit();
                     }
                     idx++;
                 }
 
                 //adding text to document  
-                wordDocument.Content.SetRange(0, 0);
-                wordDocument.Content.Text = Environment.NewLine;
+                //wordDocument.Content.SetRange(0, 0);
+                //wordDocument.Content.Text = Environment.NewLine;
 
                 // create tables for each program
                 for (int i = 0; i < days; i++)
@@ -174,7 +180,8 @@ namespace GenerateDocument
                     Object styleHeading1 = Microsoft.Office.Interop.Word.WdBuiltinStyle.wdStyleHeading1;
                     par.Range.set_Style(ref styleHeading1);
                     par.Range.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphJustifyMed;
-                    par.Range.Text = Environment.NewLine + "Πρόγραμμα " + (i + 1) + ": " + tablesOfProgram[i].Category + Environment.NewLine;
+                    par.Range.Text = Environment.NewLine + "Πρόγραμμα " + (i + 1) + ": " + CategoryProcess.categoryEnumToGreek(tablesOfProgram[i].Category);
+                    //categoryEnumToGreek(tablesOfProgram[i].Category); // tablesOfProgram[i].Category.ToString().Replace.... + Environment.NewLine;
                     par.Range.InsertParagraphAfter();
 
                     // create table
@@ -196,7 +203,7 @@ namespace GenerateDocument
                             {
                                 if ((cell.ColumnIndex > 3 && cell.ColumnIndex < 7) || cell.ColumnIndex == 1) cell.Column.AutoFit();
                                 //else cell.SetWidth(cell.Column.Width, Microsoft.Office.Interop.Word.WdRulerStyle.wdAdjustProportional);
-                                cell.Range.Text = ((ColumnEnum)cell.ColumnIndex).ToString();
+                                cell.Range.Text = ColumnProcess.columnEnumToGreek(cell.ColumnIndex); //columnEnumToGreek(cell.ColumnIndex); //((ColumnEnum)cell.ColumnIndex).ToString();
                                 cell.Range.Font.Bold = 1;
                                 //  cell.Range.Font.Size = 8;
                                 //other format properties goes here  
@@ -220,6 +227,7 @@ namespace GenerateDocument
                                 //else cell.SetWidth(cell.Column.Width, Microsoft.Office.Interop.Word.WdRulerStyle.wdAdjustProportional);
                                 cell.Range.Font.Size = 9;
                                 cell.Range.Text = items[j];
+                                cell.Shading.BackgroundPatternColor = Microsoft.Office.Interop.Word.WdColor.wdColorGray10;
                                 j++;
                             }
                         }
@@ -231,6 +239,8 @@ namespace GenerateDocument
                             {
                                 if (cell.ColumnIndex > 3 && cell.ColumnIndex < 7) cell.Column.AutoFit();
                                 //else cell.SetWidth(cell.Column.Width, Microsoft.Office.Interop.Word.WdRulerStyle.wdAdjustProportional);
+                                cell.Shading.BackgroundPatternColor = (row.Index % 2 == 0) ? Microsoft.Office.Interop.Word.WdColor.wdColorGray10
+                                    : Microsoft.Office.Interop.Word.WdColor.wdColorGray05;
                                 cell.Range.Font.Size = 9;
                                 cell.Range.Text = items[j];
                                 j++;
@@ -244,6 +254,8 @@ namespace GenerateDocument
                             {
                                 if (cell.ColumnIndex > 3 && cell.ColumnIndex < 7) cell.Column.AutoFit();
                                 //else cell.SetWidth(cell.Column.Width, Microsoft.Office.Interop.Word.WdRulerStyle.wdAdjustProportional);
+                                cell.Shading.BackgroundPatternColor = (row.Index % 2 == 0) ? Microsoft.Office.Interop.Word.WdColor.wdColorGray10
+                                    : Microsoft.Office.Interop.Word.WdColor.wdColorGray05;
                                 cell.Range.Font.Size = 9;
                                 cell.Range.Text = items[j];
                                 j++;
@@ -257,7 +269,8 @@ namespace GenerateDocument
                                 //else cell.SetWidth(cell.Column.Width, Microsoft.Office.Interop.Word.WdRulerStyle.wdAdjustProportional);
                                 cell.Range.Font.Size = 9;
                                 //cell.Column.AutoFit();
-
+                                cell.Shading.BackgroundPatternColor = (row.Index % 2 == 0) ? Microsoft.Office.Interop.Word.WdColor.wdColorGray10
+                                    : Microsoft.Office.Interop.Word.WdColor.wdColorGray05;
                                 cell.Range.Text = exercisesToRowVector[counter];
                                 counter++;
                             }
