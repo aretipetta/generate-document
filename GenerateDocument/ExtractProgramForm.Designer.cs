@@ -101,9 +101,9 @@ namespace GenerateDocument
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(12, 27);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(187, 17);
+            this.label3.Size = new System.Drawing.Size(192, 17);
             this.label3.TabIndex = 5;
-            this.label3.Text = "Υπεύθυνος/η γυμναστή/ριας";
+            this.label3.Text = "Υπεύθυνος/η γυμναστή/ριας*";
             // 
             // textBox2
             // 
@@ -124,9 +124,9 @@ namespace GenerateDocument
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(12, 55);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(225, 17);
+            this.label4.Size = new System.Drawing.Size(230, 17);
             this.label4.TabIndex = 7;
-            this.label4.Text = "Ονοματεπώνυμο σθνδρομητή/ριας";
+            this.label4.Text = "Ονοματεπώνυμο σθνδρομητή/ριας*";
             // 
             // textBox4
             // 
@@ -140,9 +140,9 @@ namespace GenerateDocument
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(12, 83);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(152, 17);
+            this.label5.Size = new System.Drawing.Size(157, 17);
             this.label5.TabIndex = 9;
-            this.label5.Text = "Στόχος προγράμματος";
+            this.label5.Text = "Στόχος προγράμματος*";
             // 
             // textBox5
             // 
@@ -241,7 +241,7 @@ namespace GenerateDocument
             this.MinimizeBox = false;
             this.Name = "ExtractProgramForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "ExtractProgramForm";
+            this.Text = "Εξαγωγή Προγράμματος";
             this.ResumeLayout(false);
             this.PerformLayout();
 

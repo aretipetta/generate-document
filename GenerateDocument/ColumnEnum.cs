@@ -6,7 +6,7 @@ namespace GenerateDocument
 {
     public enum ColumnEnum
     {
-        [Description("ΜΥΙΚΗ ΜΑΖΑ")]
+        [Description("ΜΥΙΚΗ ΟΜΑΔΑ")]
         MUSCLE_GROUPS = 1,
         [Description("ΠΕΡΙΓΡΑΦΗ")]
         DESCRIPTION = 2,
@@ -14,7 +14,7 @@ namespace GenerateDocument
         EQUIPEMENT = 3,
         [Description("ΣΕΤ")]
         SET = 4,
-        [Description("ΕΠΑΝΑΛ.")]
+        [Description("ΕΠΑΝ.")]
         REPS = 5,
         [Description("ΔΙΑΛ.")]
         BREAK = 6,

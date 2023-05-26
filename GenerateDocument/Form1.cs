@@ -104,5 +104,10 @@ namespace GenerateDocument
             button1.Visible = false;
             panels.ForEach(p => p.Visible = false);
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

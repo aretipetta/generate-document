@@ -75,11 +75,11 @@ namespace GenerateDocument
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(1351, 9);
+            this.button1.Location = new System.Drawing.Point(1341, 9);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 29);
+            this.button1.Size = new System.Drawing.Size(85, 29);
             this.button1.TabIndex = 11;
-            this.button1.Text = "Exit";
+            this.button1.Text = "Έξοδος";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -130,7 +130,7 @@ namespace GenerateDocument
             this.MinimizeBox = false;
             this.Name = "DailyProgram";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "DailyProgram";
+            this.Text = "Πρόγραμμα Ημέρας";
             this.Load += new System.EventHandler(this.DailyProgram_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

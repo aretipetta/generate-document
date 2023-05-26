@@ -54,6 +54,7 @@ namespace GenerateDocument
             this.comboBox7 = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -67,9 +68,9 @@ namespace GenerateDocument
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.button1.Location = new System.Drawing.Point(445, 482);
+            this.button1.Location = new System.Drawing.Point(445, 499);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(158, 78);
+            this.button1.Size = new System.Drawing.Size(158, 61);
             this.button1.TabIndex = 0;
             this.button1.Text = "Δημιουγρία προγράμματος";
             this.button1.UseVisualStyleBackColor = true;
@@ -78,7 +79,7 @@ namespace GenerateDocument
             // numericUpDown1
             // 
             this.numericUpDown1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.numericUpDown1.Location = new System.Drawing.Point(246, 17);
+            this.numericUpDown1.Location = new System.Drawing.Point(249, 55);
             this.numericUpDown1.Maximum = new decimal(new int[] {
             7,
             0,
@@ -103,9 +104,9 @@ namespace GenerateDocument
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.label1.Location = new System.Drawing.Point(26, 19);
+            this.label1.Location = new System.Drawing.Point(29, 57);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(214, 25);
+            this.label1.Size = new System.Drawing.Size(171, 20);
             this.label1.TabIndex = 2;
             this.label1.Text = "Αριθμός ημερών (1-7)";
             // 
@@ -113,7 +114,7 @@ namespace GenerateDocument
             // 
             this.panel1.Controls.Add(this.comboBox1);
             this.panel1.Controls.Add(this.label2);
-            this.panel1.Location = new System.Drawing.Point(30, 89);
+            this.panel1.Location = new System.Drawing.Point(33, 114);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(409, 50);
             this.panel1.TabIndex = 3;
@@ -140,7 +141,7 @@ namespace GenerateDocument
             // 
             this.panel2.Controls.Add(this.comboBox2);
             this.panel2.Controls.Add(this.label3);
-            this.panel2.Location = new System.Drawing.Point(30, 145);
+            this.panel2.Location = new System.Drawing.Point(33, 170);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(409, 50);
             this.panel2.TabIndex = 4;
@@ -167,7 +168,7 @@ namespace GenerateDocument
             // 
             this.panel3.Controls.Add(this.comboBox3);
             this.panel3.Controls.Add(this.label4);
-            this.panel3.Location = new System.Drawing.Point(30, 201);
+            this.panel3.Location = new System.Drawing.Point(33, 226);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(409, 50);
             this.panel3.TabIndex = 5;
@@ -194,7 +195,7 @@ namespace GenerateDocument
             // 
             this.panel4.Controls.Add(this.comboBox4);
             this.panel4.Controls.Add(this.label5);
-            this.panel4.Location = new System.Drawing.Point(30, 257);
+            this.panel4.Location = new System.Drawing.Point(33, 282);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(409, 50);
             this.panel4.TabIndex = 4;
@@ -221,7 +222,7 @@ namespace GenerateDocument
             // 
             this.panel5.Controls.Add(this.comboBox5);
             this.panel5.Controls.Add(this.label6);
-            this.panel5.Location = new System.Drawing.Point(30, 313);
+            this.panel5.Location = new System.Drawing.Point(33, 338);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(409, 50);
             this.panel5.TabIndex = 4;
@@ -248,7 +249,7 @@ namespace GenerateDocument
             // 
             this.panel6.Controls.Add(this.comboBox6);
             this.panel6.Controls.Add(this.label7);
-            this.panel6.Location = new System.Drawing.Point(30, 369);
+            this.panel6.Location = new System.Drawing.Point(33, 394);
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(409, 50);
             this.panel6.TabIndex = 4;
@@ -275,7 +276,7 @@ namespace GenerateDocument
             // 
             this.panel7.Controls.Add(this.comboBox7);
             this.panel7.Controls.Add(this.label8);
-            this.panel7.Location = new System.Drawing.Point(30, 425);
+            this.panel7.Location = new System.Drawing.Point(33, 450);
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(409, 50);
             this.panel7.TabIndex = 4;
@@ -301,7 +302,7 @@ namespace GenerateDocument
             // button2
             // 
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.button2.Location = new System.Drawing.Point(381, 13);
+            this.button2.Location = new System.Drawing.Point(361, 51);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(119, 32);
             this.button2.TabIndex = 6;
@@ -309,12 +310,24 @@ namespace GenerateDocument
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
+            // button3
+            // 
+            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            this.button3.Location = new System.Drawing.Point(511, 12);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(92, 32);
+            this.button3.TabIndex = 7;
+            this.button3.Text = "Έξοδος";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(615, 571);
+            this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.panel7);
             this.Controls.Add(this.panel6);
@@ -331,7 +344,7 @@ namespace GenerateDocument
             this.MinimizeBox = false;
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Form1";
+            this.Text = "Αρχικό Μενού";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.panel1.ResumeLayout(false);
@@ -380,6 +393,7 @@ namespace GenerateDocument
         private System.Windows.Forms.ComboBox comboBox7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button3;
     }
 }
 
