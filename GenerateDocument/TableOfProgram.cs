@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GenerateDocument
 {
@@ -43,6 +39,11 @@ namespace GenerateDocument
                 indexOfList++;
             }
             return items;
+        }
+
+        public int getTablesSize()
+        {
+            return exercises.Count;
         }
     }
 }

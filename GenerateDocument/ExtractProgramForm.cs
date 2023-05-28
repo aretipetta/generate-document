@@ -72,6 +72,11 @@ namespace GenerateDocument
                 MessageBox.Show("Μη έγκυρη ημερομηνία έναρξης προγράμματος.");
                 return;
             }
+            else
+            {
+                string[] splitText = textBox6.Text.Trim().Split('/');
+                // todo: string format to date and then check if parse can be done
+            }
             if (!Regex.IsMatch(textBox7.Text.Trim(), dateValidation))
             {
                 MessageBox.Show("Μη έγκυρη ημερομηνία λήξης προγράμματος.");
@@ -102,8 +107,8 @@ namespace GenerateDocument
                 Microsoft.Office.Interop.Word.Document wordDocument = wordApp.Documents.Add(ref missing, ref missing, ref missing, ref missing);
                 wordDocument.PageSetup.TopMargin = (float)0.5;
                 wordDocument.PageSetup.BottomMargin = (float)0.5;
-                wordDocument.PageSetup.LeftMargin = (float)3.5;
-                wordDocument.PageSetup.RightMargin = (float)3.5;
+                wordDocument.PageSetup.LeftMargin = (float)4.5;
+                wordDocument.PageSetup.RightMargin = (float)4.5;
 
                 foreach (Section section in wordDocument.Sections)
                 {
@@ -117,10 +122,10 @@ namespace GenerateDocument
 
                     //Get the footer range and add the footer details.
                     Microsoft.Office.Interop.Word.Range footerRange = section.Footers[WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
-                    footerRange.Font.ColorIndex = WdColorIndex.wdDarkRed;
+                    footerRange.Font.ColorIndex = WdColorIndex.wdGray50;
                     footerRange.Font.Size = 9;
                     footerRange.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
-                    footerRange.Text = ":)";
+                    footerRange.Text = "ALTERLIFE - Εθ. Αντιστάσεως 173, Δραπετσώνα 186 48";
                 }
 
                 // add image
@@ -130,7 +135,6 @@ namespace GenerateDocument
                 pp.Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphJustifyMed;
                 string filePathToImage = Path.Combine(Environment.CurrentDirectory, "ALTERLIFE.PNG");
                 pp.Range.InlineShapes.AddPicture(filePathToImage);
-
 
                 // details
                 // add table with extra details
@@ -146,7 +150,6 @@ namespace GenerateDocument
                 t.Borders.Enable = 1;
                 String[] labels = new string[] { "Υπεύθυνος/η γυμναστής/ρια", "Συνδρομητής/ρια", "Στόχος προγράμματος", "Έναρξη προγράμματος", "Λήξη προγράμματος", "Ηλικία συνδρομητή/ριας" };
                 String[] detailsFromForm = new string[] { textBox2.Text.Trim(), textBox3.Text.Trim(), textBox4.Text.Trim(), textBox6.Text.Trim(), textBox7.Text.Trim(), textBox5.Text.Trim() };
-                //int idx = 0;
                 int offset = 0;
                 foreach (Microsoft.Office.Interop.Word.Row row in t.Rows)
                 {
@@ -170,12 +173,7 @@ namespace GenerateDocument
                         if(cell.ColumnIndex == 2) offset++;
                         cell.Range.Font.Size = 9;
                     }
-                    //idx++;
                 }
-
-                //adding text to document  
-                //wordDocument.Content.SetRange(0, 0);
-                //wordDocument.Content.Text = Environment.NewLine;
 
                 // create tables for each program
                 for (int i = 0; i < days; i++)
@@ -184,29 +182,26 @@ namespace GenerateDocument
                     TableOfProgram tbl = tablesOfProgram[i]; // the whole table with exercises
 
                     Microsoft.Office.Interop.Word.Paragraph par = wordDocument.Content.Paragraphs.Add(ref missing);
+                    object oPageBreak = WdBreakType.wdPageBreak;
+                    par.Range.InsertBreak(ref oPageBreak);
                     Object styleHeading1 = WdBuiltinStyle.wdStyleHeading1;
                     par.Range.set_Style(ref styleHeading1);
                     par.Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphJustifyMed;
-                    par.Range.Text = Environment.NewLine + "Πρόγραμμα " + (i + 1) + ": " + CategoryProcess.categoryEnumToGreek(tablesOfProgram[i].Category);
-                    //categoryEnumToGreek(tablesOfProgram[i].Category); // tablesOfProgram[i].Category.ToString().Replace.... + Environment.NewLine;
+                    par.Range.ParagraphFormat.PageBreakBefore = 0;
+                    par.Range.Text = "Πρόγραμμα " + (i + 1) + ": " + CategoryProcess.categoryEnumToGreek(tablesOfProgram[i].Category);
                     par.Range.InsertParagraphAfter();
 
                     // create table
                     //Create a table and insert some dummy records (rows: +1 for headers and +3 for aerobic/stretching before and after)
                     Microsoft.Office.Interop.Word.Table table = wordDocument.Tables.Add(par.Range, tbl.Exercises.Count + 1 + 3, Enum.GetValues(typeof(ColumnEnum)).Length, ref missing, ref missing);
                     table.Borders.Enable = 1;
-                    Microsoft.Office.Interop.Word.ParagraphFormat pf = table.Range.ParagraphFormat;
-                    pf.KeepWithNext = -1;
-                    pf.KeepTogether = -1;
 
-                    //table.AutoFitBehavior(Microsoft.Office.Interop.Word.WdAutoFitBehavior.wdAutoFitWindow); //.wdAutoFitWindow
-                    //  table.PreferredWidthType = Microsoft.Office.Interop.Word.WdPreferredWidthType.wdPreferredWidthPercent; // wordDocument.Sections[0].PageSetup.PageWidth - 20;
-                    //firstTable.PreferredWidth = 30;
                     String[] exercisesToRowVector = tbl.listToRowVector();
                     int counter = 0;
                     int idxRow = 0;
                     foreach (Microsoft.Office.Interop.Word.Row row in table.Rows)
                     {
+                        row.AllowBreakAcrossPages = 0;
                         // header row of table
                         if (row.Index == 1)
                         {
@@ -219,9 +214,7 @@ namespace GenerateDocument
                                 cell.Range.Font.Size = 9;
                                 //other format properties goes here  
                                 //cell.Range.Font.Name = "verdana";
-                                //   cell.Column.AutoFit();
-
-                                //cell.Range.Font.ColorIndex = WdColorIndex.wdGray25;                              
+                          
                                 cell.Shading.BackgroundPatternColor = WdColor.wdColorYellow;
                                 //Center alignment for the Header cells  
                                 cell.VerticalAlignment = WdCellVerticalAlignment.wdCellAlignVerticalCenter;
@@ -235,7 +228,6 @@ namespace GenerateDocument
                             foreach (Microsoft.Office.Interop.Word.Cell cell in row.Cells)
                             {
                                 if (cell.ColumnIndex > 3 && cell.ColumnIndex < 7) cell.Column.AutoFit();
-                                //else cell.SetWidth(cell.Column.Width, Microsoft.Office.Interop.Word.WdRulerStyle.wdAdjustProportional);
                                 cell.Range.Font.Size = 9;
                                 cell.Range.Text = items[j];
                                 cell.Shading.BackgroundPatternColor = WdColor.wdColorGray10;
@@ -249,7 +241,6 @@ namespace GenerateDocument
                             foreach (Microsoft.Office.Interop.Word.Cell cell in row.Cells)
                             {
                                 if (cell.ColumnIndex > 3 && cell.ColumnIndex < 7) cell.Column.AutoFit();
-                                //else cell.SetWidth(cell.Column.Width, Microsoft.Office.Interop.Word.WdRulerStyle.wdAdjustProportional);
                                 cell.Shading.BackgroundPatternColor = (row.Index % 2 == 0) ? WdColor.wdColorGray10
                                     : WdColor.wdColorGray05;
                                 cell.Range.Font.Size = 9;
@@ -264,7 +255,6 @@ namespace GenerateDocument
                             foreach (Microsoft.Office.Interop.Word.Cell cell in row.Cells)
                             {
                                 if (cell.ColumnIndex > 3 && cell.ColumnIndex < 7) cell.Column.AutoFit();
-                                //else cell.SetWidth(cell.Column.Width, Microsoft.Office.Interop.Word.WdRulerStyle.wdAdjustProportional);
                                 cell.Shading.BackgroundPatternColor = (row.Index % 2 == 0) ? WdColor.wdColorGray10
                                     : WdColor.wdColorGray05;
                                 cell.Range.Font.Size = 9;
@@ -277,9 +267,7 @@ namespace GenerateDocument
                             foreach (Microsoft.Office.Interop.Word.Cell cell in row.Cells)
                             {
                                 if (cell.ColumnIndex > 3 && cell.ColumnIndex < 7) cell.Column.AutoFit();
-                                //else cell.SetWidth(cell.Column.Width, Microsoft.Office.Interop.Word.WdRulerStyle.wdAdjustProportional);
                                 cell.Range.Font.Size = 9;
-                                //cell.Column.AutoFit();
                                 cell.Shading.BackgroundPatternColor = (row.Index % 2 == 0) ? WdColor.wdColorGray10
                                     : WdColor.wdColorGray05;
                                 cell.Range.Text = exercisesToRowVector[counter];
@@ -293,19 +281,12 @@ namespace GenerateDocument
 
 
                 //Save the document  
-                //string pathToDesktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);  TODO: this doesn't work
-                //object filename = @"c:\temp1.docx";
                 string filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), textBox1.Text.Trim() + ".docx");
-
-               // object filename = @"C:\Users\areti\Desktop\testDoc.doc";
-                //object filename = pathToDesktop + @"\testDoc.docx";
-                //wordDocument.Save();
                 wordDocument.SaveAs(filePath);
 
                 // closing word doc
                 wordDocument.Close(ref missing, ref missing, ref missing);
                 wordDocument = null;
-                //wordDocument.Close(false);
                 wordApp.Quit(ref missing, ref missing, ref missing);
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(wordApp);
                 wordApp = null;

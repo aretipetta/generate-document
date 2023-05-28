@@ -2,12 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
-using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 namespace GenerateDocument
 {
@@ -106,14 +101,6 @@ namespace GenerateDocument
             numericUpDown2.Value = 1;
             numericUpDown3.Value = 1;
             richTextBox1.Clear();
-
-            //foreach (Control c in panel3.Controls)
-            //{
-            //    if (c is ComboBox) ((ComboBox)c).Items.Clear();
-            //    else if (c is NumericUpDown) ((NumericUpDown)c).Value = 1;
-            //    else if (c is RichTextBox) ((RichTextBox)c).Clear();
-            //}
-
         }
 
         // get the english terminology for a muscle group

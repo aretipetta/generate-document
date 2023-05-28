@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace GenerateDocument
@@ -115,14 +110,10 @@ namespace GenerateDocument
             {
                 if (tp.Exercises.Count < 1 || tp.Exercises.Count > 15)
                 {
-                    MessageBox.Show("Οι πίνακες πρέπει να έχουν τουλάχιστον 1 εγγραφή και το πολύ 15.");
+                    MessageBox.Show("Οι πίνακες πρέπει να έχουν τουλάχιστον 1 εγγραφή και το πολύ 17.");
                     return;
                 }
             }
-            //tablesOfProgram.ForEach(p =>
-            //{
-                
-            //});
 
             // metavash se allh forma me olous tous pinakes gia epivevaiwsh (?)
             ExtractProgramForm extractProgramForm = new ExtractProgramForm(this, days, tablesOfProgram);
@@ -153,9 +144,10 @@ namespace GenerateDocument
             dataGridViews[counter].Height += 20;
 
             // telos elegxos oti den exei valei hdh 15 askiseis (15 einai to max) 
-            if (tablesOfProgram[counter].Exercises.Count == 15)
+            if (tablesOfProgram[counter].getTablesSize() == 17) // tablesOfProgram[counter].Excercises.Count == 15
             {
                 this.button2.Enabled = false;
+                MessageBox.Show("Φτάσατε το μέγιστο όριο ασκήσεων που μπο΄ρείτε να προσθέσετε σε ένα πρόγραμμα.");
             }
         }
 

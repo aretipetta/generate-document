@@ -61,7 +61,7 @@ namespace GenerateDocument
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(247, 248);
+            this.textBox1.Location = new System.Drawing.Point(256, 248);
             this.textBox1.MaxLength = 50;
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(265, 22);
@@ -80,7 +80,7 @@ namespace GenerateDocument
             // label2
             // 
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.label2.Location = new System.Drawing.Point(253, 273);
+            this.label2.Location = new System.Drawing.Point(262, 273);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(243, 51);
             this.label2.TabIndex = 3;
@@ -107,16 +107,16 @@ namespace GenerateDocument
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(247, 24);
+            this.textBox2.Location = new System.Drawing.Point(256, 24);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(373, 22);
+            this.textBox2.Size = new System.Drawing.Size(364, 22);
             this.textBox2.TabIndex = 6;
             // 
             // textBox3
             // 
-            this.textBox3.Location = new System.Drawing.Point(247, 52);
+            this.textBox3.Location = new System.Drawing.Point(256, 52);
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(373, 22);
+            this.textBox3.Size = new System.Drawing.Size(364, 22);
             this.textBox3.TabIndex = 8;
             // 
             // label4
@@ -130,9 +130,9 @@ namespace GenerateDocument
             // 
             // textBox4
             // 
-            this.textBox4.Location = new System.Drawing.Point(247, 80);
+            this.textBox4.Location = new System.Drawing.Point(256, 80);
             this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(373, 22);
+            this.textBox4.Size = new System.Drawing.Size(364, 22);
             this.textBox4.TabIndex = 10;
             // 
             // label5
@@ -146,7 +146,7 @@ namespace GenerateDocument
             // 
             // textBox5
             // 
-            this.textBox5.Location = new System.Drawing.Point(247, 165);
+            this.textBox5.Location = new System.Drawing.Point(256, 165);
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new System.Drawing.Size(65, 22);
             this.textBox5.TabIndex = 12;
@@ -162,7 +162,7 @@ namespace GenerateDocument
             // 
             // textBox6
             // 
-            this.textBox6.Location = new System.Drawing.Point(247, 108);
+            this.textBox6.Location = new System.Drawing.Point(256, 108);
             this.textBox6.Name = "textBox6";
             this.textBox6.Size = new System.Drawing.Size(142, 22);
             this.textBox6.TabIndex = 14;
@@ -178,7 +178,7 @@ namespace GenerateDocument
             // 
             // textBox7
             // 
-            this.textBox7.Location = new System.Drawing.Point(247, 137);
+            this.textBox7.Location = new System.Drawing.Point(256, 137);
             this.textBox7.Name = "textBox7";
             this.textBox7.Size = new System.Drawing.Size(142, 22);
             this.textBox7.TabIndex = 16;
@@ -196,7 +196,7 @@ namespace GenerateDocument
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.label9.Location = new System.Drawing.Point(395, 117);
+            this.label9.Location = new System.Drawing.Point(404, 117);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(79, 13);
             this.label9.TabIndex = 17;
@@ -206,7 +206,7 @@ namespace GenerateDocument
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.label10.Location = new System.Drawing.Point(395, 144);
+            this.label10.Location = new System.Drawing.Point(404, 144);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(79, 13);
             this.label10.TabIndex = 18;

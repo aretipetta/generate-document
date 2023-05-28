@@ -124,7 +124,7 @@ namespace GenerateDocument
             // 
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(113, 17);
+            this.comboBox1.Location = new System.Drawing.Point(121, 17);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(303, 24);
             this.comboBox1.TabIndex = 0;
@@ -141,7 +141,7 @@ namespace GenerateDocument
             // 
             // richTextBox1
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(113, 212);
+            this.richTextBox1.Location = new System.Drawing.Point(121, 212);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.Size = new System.Drawing.Size(245, 135);
             this.richTextBox1.TabIndex = 13;
@@ -169,7 +169,7 @@ namespace GenerateDocument
             // 
             this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(113, 47);
+            this.comboBox2.Location = new System.Drawing.Point(121, 47);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(303, 24);
             this.comboBox2.TabIndex = 3;
@@ -177,7 +177,7 @@ namespace GenerateDocument
             // 
             // numericUpDown3
             // 
-            this.numericUpDown3.Location = new System.Drawing.Point(113, 167);
+            this.numericUpDown3.Location = new System.Drawing.Point(121, 167);
             this.numericUpDown3.Maximum = new decimal(new int[] {
             120,
             0,
@@ -219,14 +219,14 @@ namespace GenerateDocument
             // 
             this.comboBox3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Location = new System.Drawing.Point(113, 77);
+            this.comboBox3.Location = new System.Drawing.Point(121, 77);
             this.comboBox3.Name = "comboBox3";
             this.comboBox3.Size = new System.Drawing.Size(303, 24);
             this.comboBox3.TabIndex = 5;
             // 
             // numericUpDown2
             // 
-            this.numericUpDown2.Location = new System.Drawing.Point(113, 139);
+            this.numericUpDown2.Location = new System.Drawing.Point(121, 139);
             this.numericUpDown2.Maximum = new decimal(new int[] {
             25,
             0,
@@ -266,7 +266,7 @@ namespace GenerateDocument
             // 
             // numericUpDown1
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(113, 111);
+            this.numericUpDown1.Location = new System.Drawing.Point(121, 111);
             this.numericUpDown1.Maximum = new decimal(new int[] {
             20,
             0,
