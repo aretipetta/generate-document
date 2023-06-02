@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Configuration;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -24,7 +25,7 @@ namespace GenerateDocument
         String nameValidation = "^[a-zA-Z]+(\\s?[a-zA-Z]+){0,3}$";
         String goalValidation = "^[a-zA-Z]+(\\s?[a-zA-Z]+)*$";
         String dateValidation = "^([0-9]{1,2}/){2}[0-9]{4}$";
-        String ageValidation = "^[1-9][0-9]$";
+        String ageValidation = "^[0-9]{1,3}$";
 
         DailyProgram dailyProgram;
         int days;
@@ -74,18 +75,67 @@ namespace GenerateDocument
             }
             else
             {
-                string[] splitText = textBox6.Text.Trim().Split('/');
-                // todo: string format to date and then check if parse can be done
+                try
+                {
+                    DateTime dt = DateTime.ParseExact(textBox6.Text.Trim(), "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                    int result = DateTime.Compare(DateTime.Today, dt);
+                    if(result > 0)
+                    {
+                        MessageBox.Show("Μη έγκυρη ημερομηνία έναρξης προγράμματος.");
+                        return;
+                    }
+                }
+                catch(Exception e)
+                {
+                    MessageBox.Show("Μη έγκυρη ημερομηνία έναρξης προγράμματος.");
+                    return;
+                }
             }
             if (!Regex.IsMatch(textBox7.Text.Trim(), dateValidation))
             {
                 MessageBox.Show("Μη έγκυρη ημερομηνία λήξης προγράμματος.");
                 return;
             }
+            else
+            {
+                try
+                {
+                    DateTime dtS = DateTime.ParseExact(textBox6.Text.Trim(), "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                    DateTime dtE = DateTime.ParseExact(textBox7.Text.Trim(), "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                    int result = DateTime.Compare(dtS, dtE);
+                    if (result >= 0)
+                    {
+                        MessageBox.Show("Μη έγκυρη ημερομηνία λήξης προγράμματος.");
+                        return;
+                    }
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("Μη έγκυρη ημερομηνία λήξης προγράμματος.");
+                    return;
+                }
+            }
             if (!Regex.IsMatch(textBox5.Text.Trim(), ageValidation))
             {
                 MessageBox.Show("Μη έγκυρη ηλικία συνδρομητή/ριας.");
                 return;
+            }
+            else
+            {
+                int age;
+                if (!int.TryParse(textBox5.Text.Trim(), out age))
+                {
+                    MessageBox.Show("Μη έγκυρη ηλικία συνδρομητή.");
+                    return;
+                }
+                else
+                {
+                    if(age < 5 && age > 120)
+                    {
+                        MessageBox.Show("Μη έγκυρη ηλικία συνδρομητή.");
+                        return;
+                    }
+                }
             }
             if(!Regex.IsMatch(textBox1.Text.Trim(), docNameValidation))
             {
@@ -125,7 +175,7 @@ namespace GenerateDocument
                     footerRange.Font.ColorIndex = WdColorIndex.wdGray50;
                     footerRange.Font.Size = 9;
                     footerRange.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
-                    footerRange.Text = "ALTERLIFE - Εθ. Αντιστάσεως 173, Δραπετσώνα 186 48";
+                    footerRange.Text = ":')";
                 }
 
                 // add image

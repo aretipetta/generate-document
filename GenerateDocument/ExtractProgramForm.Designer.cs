@@ -198,9 +198,9 @@ namespace GenerateDocument
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.label9.Location = new System.Drawing.Point(404, 117);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(79, 13);
+            this.label9.Size = new System.Drawing.Size(94, 16);
             this.label9.TabIndex = 17;
-            this.label9.Text = "*mm/MM/YYYY";
+            this.label9.Text = "*dd/MM/YYYY";
             // 
             // label10
             // 
@@ -208,9 +208,9 @@ namespace GenerateDocument
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.label10.Location = new System.Drawing.Point(404, 144);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(79, 13);
+            this.label10.Size = new System.Drawing.Size(94, 16);
             this.label10.TabIndex = 18;
-            this.label10.Text = "*mm/MM/YYYY";
+            this.label10.Text = "*dd/MM/YYYY";
             // 
             // ExtractProgramForm
             // 

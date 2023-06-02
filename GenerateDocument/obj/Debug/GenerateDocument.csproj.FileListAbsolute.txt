@@ -1,7 +1,6 @@
 C:\Users\areti\Documents\my_projects\projects\GenerateDocument\GenerateDocument\bin\Debug\GenerateDocument.exe.config
 C:\Users\areti\Documents\my_projects\projects\GenerateDocument\GenerateDocument\bin\Debug\GenerateDocument.exe
 C:\Users\areti\Documents\my_projects\projects\GenerateDocument\GenerateDocument\bin\Debug\GenerateDocument.pdb
-C:\Users\areti\Documents\my_projects\projects\GenerateDocument\GenerateDocument\obj\Debug\GenerateDocument.csproj.AssemblyReference.cache
 C:\Users\areti\Documents\my_projects\projects\GenerateDocument\GenerateDocument\obj\Debug\GenerateDocument.csproj.ResolveComReference.cache
 C:\Users\areti\Documents\my_projects\projects\GenerateDocument\GenerateDocument\obj\Debug\GenerateDocument.Form1.resources
 C:\Users\areti\Documents\my_projects\projects\GenerateDocument\GenerateDocument\obj\Debug\GenerateDocument.Properties.Resources.resources
