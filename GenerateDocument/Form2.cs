@@ -1,7 +1,10 @@
-﻿using System;
+﻿using GenerateDocument.WebDataConnector;
+using GenerateDocument.WebDataConnector.Domain;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
+using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 namespace GenerateDocument
@@ -11,6 +14,7 @@ namespace GenerateDocument
 
         DailyProgram dailyProgram;
         CategoryEnum categoryEnum;
+        List<ExerciseRecordFBDB> exercisesByBodyCategory;
         int day;
 
         public Form2(DailyProgram dailyProgram, CategoryEnum categoryEnum, int day)
@@ -18,6 +22,7 @@ namespace GenerateDocument
             InitializeComponent();
             this.dailyProgram = dailyProgram;
             this.categoryEnum = categoryEnum;
+            // this.exercisesByBodyCategory = new List<ExerciseRecordFBDB>();
             this.day = day;
         }
 
@@ -34,9 +39,35 @@ namespace GenerateDocument
         {
             // apla gemizei ta combobox me ta swsta
             clearControls();
-            List<String> items = new List<string>(ConfigurationManager.AppSettings[categoryEnum.ToString()].Split(';'));
-            comboBox1.Items.AddRange(items.ToArray());
+            // add muscle groups to combobox1 based on the selected bodycategory
+            ConfigFirebase config = new ConfigFirebase();
+            CustomResponseFromFBDB resp = config.selectMuscleGroupsByBodyCategory(categoryEnum.ToString());
+
+            if(!resp.OK)
+            {
+                MessageBox.Show("Something went wrong with data. Error message: " + resp.ResponseBody.ToString());
+            }
+            else
+            {
+                initListOfExercisesByCategory((List<ExerciseRecordFBDB>)resp.ResponseBody);
+                List<String> muscleGroups = getMuscleGroupsFromExercises(exercisesByBodyCategory);
+                comboBox1.Items.AddRange(muscleGroups.ToArray());
+            }
+
+           // List<String> items = new List<string>(ConfigurationManager.AppSettings[categoryEnum.ToString()].Split(';'));
+            //comboBox1.Items.AddRange(items.ToArray());
         }
+
+        private void initListOfExercisesByCategory(List<ExerciseRecordFBDB> resultList)
+        {
+            exercisesByBodyCategory = resultList;
+        }
+
+        private List<String> getMuscleGroupsFromExercises(List<ExerciseRecordFBDB> exercises)
+        {
+            return exercises.ConvertAll<String>(ex => ex.MuscleGroup).Distinct().ToList();
+        }
+
 
         // an allaksei h timh sto 1o comboBox
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -45,13 +76,24 @@ namespace GenerateDocument
             clearControls();
             if (comboBox1.SelectedIndex != -1)
             {
-                // pairnei to item tou comboBox1 kai psaxnei ta antistoixa apo to App.config
-                String muscleGroup = termToEn(comboBox1.SelectedItem.ToString());
-                List<String> items = new List<string>(ConfigurationManager.AppSettings[muscleGroup].Split(';'));
+                // pairnei to item tou comboBox1 kai psaxnei ta antistoixa apo ti lista me ta exercisesByBodycategory
+                // gia na valei ta descriptions autwn
+                // String muscleGroup = termToEn(comboBox1.SelectedItem.ToString()); // no need to translate it
+                comboBox2.Items.AddRange(getDescriptionsByMuscleGroup(comboBox1.SelectedItem.ToString()).ToArray());
+
+                /* List<String> items = new List<string>(ConfigurationManager.AppSettings[muscleGroup].Split(';'));
+                 comboBox2.Items.AddRange(items.ToArray());*/
                 //comboBox1.Items.AddRange(items.ToArray());
-                comboBox2.Items.AddRange(items.ToArray());
                 comboBox2.Enabled = true;
             }
+        }
+
+        private List<String> getDescriptionsByMuscleGroup(String muscleGroup)
+        {
+            // find those records that match to muscleGroup and get only the description (ExerciseName)
+            return exercisesByBodyCategory
+                .FindAll(ex => ex.MuscleGroup.Equals(muscleGroup))
+                .ConvertAll<String>(e => e.ExerciseName).ToList();
         }
 
         // an allaksei h timh sto 2o comboBox

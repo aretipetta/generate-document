@@ -30,3 +30,4 @@ C:\Users\areti\Documents\my_projects\projects\GenerateDocument\GenerateDocument\
 C:\Users\areti\Documents\my_projects\projects\GenerateDocument\GenerateDocument\bin\Debug\System.Net.Http.Primitives.xml
 C:\Users\areti\Documents\my_projects\projects\GenerateDocument\GenerateDocument\obj\Debug\GenerateDocument.csproj.App.config
 C:\Users\areti\Documents\my_projects\projects\GenerateDocument\GenerateDocument\obj\Debug\GenerateDocument.csproj.AssemblyReference.cache
+C:\Users\areti\Documents\my_projects\projects\GenerateDocument\GenerateDocument\obj\Debug\GenerateDocument.InsertRecordToDB.resources

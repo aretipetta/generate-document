@@ -24,7 +24,7 @@ namespace GenerateDocument
 
         private void button1_Click(object sender, EventArgs e)
         {
-            ConfigFirebase config = new ConfigFirebase();
+          /*  ConfigFirebase config = new ConfigFirebase();
             CustomResponseFromFBDB resp = config.SelectExercise("UPPER_BODY");
 
             if(!resp.OK)
@@ -33,8 +33,10 @@ namespace GenerateDocument
             }
             else
             {
+                MessageBox.Show("upper body engl = " + CategoryEnum.UPPER_BODY + " greek = " + CategoryProcess.categoryEnumToGreek(CategoryEnum.UPPER_BODY));
+
                 MessageBox.Show("dataa: " + resp.ResponseBody);
-            }
+            }*/
             // todo: fix this
             
 
@@ -42,7 +44,7 @@ namespace GenerateDocument
             //FirebaseResponse resp = config.InsertNewExercise("UPPER_BODY", "ΣΤΗΘΟΣ", "DECLINE CHEST PRESS");
             //MessageBox.Show("data0 = " + exerc[0]);
 
-            /* int n = (int)numericUpDown1.Value; // days
+             int n = (int)numericUpDown1.Value; // days
              for(int i = 0; i < n; i++)
              {
                  foreach (Control c in panels[i].Controls)
@@ -70,7 +72,7 @@ namespace GenerateDocument
              // go to daily program
              DailyProgram dailyProgram = new DailyProgram(this, n, categoryPerDay);
              dailyProgram.Show();
-             this.Hide(); */
+             this.Hide();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -131,6 +133,12 @@ namespace GenerateDocument
             Application.Exit();
         }
 
-
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            // add new exercise to db
+            InsertRecordToDB insertRecordToDB = new InsertRecordToDB(this);
+            insertRecordToDB.Show();
+            this.Hide();
+        }
     }
 }
