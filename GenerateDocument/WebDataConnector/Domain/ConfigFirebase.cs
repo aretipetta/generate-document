@@ -40,9 +40,6 @@ namespace GenerateDocument.WebDataConnector.Domain
         {
             var results = client.Get("/" + bodyCategory);
             return responseAssembler.selectExercisesByMuscleGroupForDescription(results, bodyCategory, muscleGroup);
-            //return results;
-            /*Student std = results.ResultAs<Student>();
-            return std;*/
         }
 
         public CustomResponseFromFBDB selectMuscleGroupsByBodyCategory(String bodyCategory)
@@ -51,12 +48,17 @@ namespace GenerateDocument.WebDataConnector.Domain
             return responseAssembler.selectMuscleGroupsByCategoryToCustomResponse(results, bodyCategory);
         }
 
-        public FirebaseResponse testResponse()
+        public CustomResponseFromFBDB getEquipementsFromDB()
         {
-            var results = client.Get("/" + "UPPER_BODY");
-            return results;
+            var results = client.Get("/EQUIPEMENT");
+            return responseAssembler.equipementsToCustomResponse(results);
         }
 
+        public CustomResponseFromFBDB addEquipement(String equipement)
+        {
+            var results = client.Push("/EQUIPEMENT", equipement);
+            return responseAssembler.equipementsToCustomResponse(results);
+        }
 
     }
 }

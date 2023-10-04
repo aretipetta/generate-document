@@ -1,14 +1,7 @@
-﻿using FireSharp.Response;
-using GenerateDocument.WebDataConnector;
-using GenerateDocument.WebDataConnector.Domain;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace GenerateDocument
@@ -22,28 +15,11 @@ namespace GenerateDocument
             InitializeComponent();
         }
 
+        /**
+         * Confirm the number of the selected days and the respective categories per day
+         */
         private void button1_Click(object sender, EventArgs e)
         {
-          /*  ConfigFirebase config = new ConfigFirebase();
-            CustomResponseFromFBDB resp = config.SelectExercise("UPPER_BODY");
-
-            if(!resp.OK)
-            {
-                MessageBox.Show("Something went wrong with data. Error message: " + resp.ResponseBody.ToString());
-            }
-            else
-            {
-                MessageBox.Show("upper body engl = " + CategoryEnum.UPPER_BODY + " greek = " + CategoryProcess.categoryEnumToGreek(CategoryEnum.UPPER_BODY));
-
-                MessageBox.Show("dataa: " + resp.ResponseBody);
-            }*/
-            // todo: fix this
-            
-
-            //List<ExerciseRecordFBDB> exerc = resp.ResultAs<List<ExerciseRecordFBDB>>();
-            //FirebaseResponse resp = config.InsertNewExercise("UPPER_BODY", "ΣΤΗΘΟΣ", "DECLINE CHEST PRESS");
-            //MessageBox.Show("data0 = " + exerc[0]);
-
              int n = (int)numericUpDown1.Value; // days
              for(int i = 0; i < n; i++)
              {
@@ -63,7 +39,7 @@ namespace GenerateDocument
              List<CategoryEnum> categoryPerDay = new List<CategoryEnum>();  // list of program per day
              for (int i = 0; i < n; i++)
              {
-                 // pairnei tis times apo ta comboBoxes gia th lista pou tha steilei sthn next form
+                 // get the values of all the selected comboBoxes in order to send them to the next form
                  foreach (Control c in panels[i].Controls)
                  {
                      if (c is ComboBox comboBox) categoryPerDay.Add((CategoryEnum)((ComboBox)c).SelectedIndex + 1);
@@ -82,7 +58,7 @@ namespace GenerateDocument
 
         public void setControls()
         {
-            // prwta ola einai invisible
+            // everything is invisible
             panels = new List<Panel>();
             numericUpDown1.Value = 1;
             List<Panel> temp = new List<Panel>();
@@ -110,10 +86,12 @@ namespace GenerateDocument
             button1.Visible = false;
         }
 
-        // ok button
+        /**
+         * Button for days selection
+         */
         private void button2_Click(object sender, EventArgs e)
         {
-            // kanei visible ta n prwta panels
+            // set visible first 'n' panels
             int n = (int)numericUpDown1.Value;
             for (int i = 0; i < n; i++) {
                 panels[i].Visible = true;
@@ -121,9 +99,11 @@ namespace GenerateDocument
             button1.Visible = true;
         }
 
+        /**
+         * Whenever the numericUpDown changes, all the other controls are being invisible 
+         */
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
-            // opote allazei kanei invisible ola ta alla
             button1.Visible = false;
             panels.ForEach(p => p.Visible = false);
         }

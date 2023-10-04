@@ -1,14 +1,7 @@
-﻿using FireSharp.Response;
-using GenerateDocument.WebDataConnector;
+﻿using GenerateDocument.WebDataConnector;
 using GenerateDocument.WebDataConnector.Domain;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace GenerateDocument
@@ -87,8 +80,6 @@ namespace GenerateDocument
                 resetControls();
                 return;
             }
-
-
         }
 
         private bool allFieldsAreRequired()

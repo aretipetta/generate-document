@@ -3,7 +3,6 @@ using GenerateDocument.WebDataConnector.Domain;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Configuration;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
@@ -22,7 +21,6 @@ namespace GenerateDocument
             InitializeComponent();
             this.dailyProgram = dailyProgram;
             this.categoryEnum = categoryEnum;
-            // this.exercisesByBodyCategory = new List<ExerciseRecordFBDB>();
             this.day = day;
         }
 
@@ -37,57 +35,56 @@ namespace GenerateDocument
 
         private void Form2_Load(object sender, EventArgs e)
         {
-            // apla gemizei ta combobox me ta swsta
+            // set values to comboBoxes
             clearControls();
-            // add muscle groups to combobox1 based on the selected bodycategory
+            // Add muscle groups to combobox1 based on the selected bodycategory
             ConfigFirebase config = new ConfigFirebase();
             CustomResponseFromFBDB resp = config.selectMuscleGroupsByBodyCategory(categoryEnum.ToString());
 
             if(!resp.OK)
             {
-                MessageBox.Show("Something went wrong with data. Error message: " + resp.ResponseBody.ToString());
+                MessageBox.Show("Οι ασκήσεις δεν βρέθηκαν. Σφάλμα: " + resp.ResponseBody.ToString());
+                return;
             }
-            else
-            {
-                initListOfExercisesByCategory((List<ExerciseRecordFBDB>)resp.ResponseBody);
-                List<String> muscleGroups = getMuscleGroupsFromExercises(exercisesByBodyCategory);
-                comboBox1.Items.AddRange(muscleGroups.ToArray());
-            }
-
-           // List<String> items = new List<string>(ConfigurationManager.AppSettings[categoryEnum.ToString()].Split(';'));
-            //comboBox1.Items.AddRange(items.ToArray());
+            initListOfExercisesByCategory((List<ExerciseRecordFBDB>)resp.ResponseBody);
+            List<String> muscleGroups = getMuscleGroupsFromExercises();
+            comboBox1.Items.AddRange(muscleGroups.ToArray());
         }
 
+        /**
+         * Init list only once so we will have no missmatches
+         */
         private void initListOfExercisesByCategory(List<ExerciseRecordFBDB> resultList)
         {
             exercisesByBodyCategory = resultList;
         }
 
-        private List<String> getMuscleGroupsFromExercises(List<ExerciseRecordFBDB> exercises)
+        /**
+         * Get distinct muscle groups from exercisesByBodyCategory list
+         */
+        private List<String> getMuscleGroupsFromExercises()
         {
-            return exercises.ConvertAll<String>(ex => ex.MuscleGroup).Distinct().ToList();
+            return exercisesByBodyCategory.ConvertAll<String>(ex => ex.MuscleGroup).Distinct().ToList();
         }
 
 
-        // an allaksei h timh sto 1o comboBox
+        // reset comboBoxes -set proper values- when comboBox1 changes value
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // otan epileksei muscle group tote ta alla katharizoun kai ginontai ksana enabled
+            // if user selects muscle group then clear comboBoxes and set them as enabled again
             clearControls();
             if (comboBox1.SelectedIndex != -1)
             {
-                // pairnei to item tou comboBox1 kai psaxnei ta antistoixa apo ti lista me ta exercisesByBodycategory
-                // gia na valei ta descriptions autwn
-                // String muscleGroup = termToEn(comboBox1.SelectedItem.ToString()); // no need to translate it
+                // comboBox2 values (descriptions) are related to the selected muscle group
+                // so set the proper values based on the selected muscle group
                 comboBox2.Items.AddRange(getDescriptionsByMuscleGroup(comboBox1.SelectedItem.ToString()).ToArray());
-
-                /* List<String> items = new List<string>(ConfigurationManager.AppSettings[muscleGroup].Split(';'));
-                 comboBox2.Items.AddRange(items.ToArray());*/
-                //comboBox1.Items.AddRange(items.ToArray());
                 comboBox2.Enabled = true;
             }
         }
 
+        /**
+         * Filter 'exercisesByBodyCategory' list to get the descriptions related to muscle group
+         */
         private List<String> getDescriptionsByMuscleGroup(String muscleGroup)
         {
             // find those records that match to muscleGroup and get only the description (ExerciseName)
@@ -96,15 +93,23 @@ namespace GenerateDocument
                 .ConvertAll<String>(e => e.ExerciseName).ToList();
         }
 
-        // an allaksei h timh sto 2o comboBox
+        // reset controls -set proper values- when user selects description from comboBox2
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // an index > 0 ==> enable comboBox3
+            // if index > 0 ==> enable comboBox3
             if (comboBox2.SelectedIndex != -1)
             {
                 comboBox3.Items.Clear();
-                List<String> items = new List<string>(ConfigurationManager.AppSettings[ColumnEnum.EQUIPEMENT.ToString()].Split(';'));
-                comboBox3.Items.AddRange(items.ToArray());
+
+                // Get equipement from db
+                ConfigFirebase config = new ConfigFirebase();
+                CustomResponseFromFBDB resp = config.getEquipementsFromDB();
+                if (!resp.OK)
+                {
+                    MessageBox.Show("Σφάλμα: " + resp.ResponseBody);
+                    return;
+                }
+                comboBox3.Items.AddRange(((List<String>)resp.ResponseBody).ToArray());
                 comboBox3.Enabled = true;
             }
             else
@@ -113,26 +118,29 @@ namespace GenerateDocument
             }
         }
 
-        // add excercise
+        // Αdd excercise
+        /**
+         * Add new exercise to the table (for the document)
+         */
         private void button4_Click(object sender, EventArgs e)
         {
             // validation: all fields are required (except the first one)
             if(!allFieldsAreRequired())
             {
-                MessageBox.Show("Τα πεδία 'Muscle group', 'Description' και 'Equipement' είναι υποχρεωτικά.");
+                MessageBox.Show("Τα πεδία 'Μυική Μάζα', 'Περιγραφή' και 'Εξοπλισμός' είναι υποχρεωτικά.");
                 return;
             } 
 
-            // apothikeush tou exercise sth lista kai emfanish sto gridView tis pisw form
+            // save exercise to the list and display it on gridView (on the form)
             dailyProgram.addExerciseToTable(comboBox1.SelectedItem.ToString(), comboBox2.SelectedItem.ToString(), comboBox3.SelectedItem.ToString(),
                 (int)numericUpDown1.Value, (int)numericUpDown2.Value, (int)numericUpDown3.Value, richTextBox1.Text.Trim());
-            // edw kanei clear ta controls tou panel3
+            // clear all the controls on panel3
             comboBox1.SelectedIndex = -1;
             clearControls();
         }
 
 
-        // clears all controls to load other items
+        // clear all controls to load other items
         private void clearControls()
         {
             comboBox2.Items.Clear();
@@ -145,7 +153,7 @@ namespace GenerateDocument
             richTextBox1.Clear();
         }
 
-        // get the english terminology for a muscle group
+        // get the english terminology of a muscle group
         public String termToEn(String termInGreek)
         {
             String termInEnglish = null;

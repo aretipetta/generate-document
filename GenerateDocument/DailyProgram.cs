@@ -51,42 +51,46 @@ namespace GenerateDocument
                 dataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
                 dataGridView.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
 
-                dataGridView.DataSource = tablesOfProgram[i].Exercises;  // panta auto tha exei gia source
+                dataGridView.DataSource = tablesOfProgram[i].Exercises;  // this will be the dataSource
                 dataGridViews.Add(dataGridView);
                 this.Controls.Add(dataGridView);
             }
         }
 
-        // prev day
+        /**
+         * Go to the exact previous day program, if it exists or else disable controls and enable others
+         */
         private void pictureBox1_Click(object sender, EventArgs e)
         {
             dataGridViews[counter].Visible = false;
             counter--;
-            label1.Text = "Μέρα " + (counter + 1) + ": " + CategoryProcess.categoryEnumToGreek(categoryPerDay[counter]); //categoryPerDay[counter];
+            label1.Text = "Μέρα " + (counter + 1) + ": " + CategoryProcess.categoryEnumToGreek(categoryPerDay[counter]);
             dataGridViews[counter].Visible = true;
             if (counter == 0) pictureBox1.Visible = false;
             if (counter == days - 2) pictureBox2.Visible = true;
-            // elegxos gia to button2.enabled ==> add new exercise
             this.button2.Enabled = !(tablesOfProgram[counter].Exercises.Count == 15);
         }
 
-        // next day
+        /**
+        * Go to the exact next day program, if it exists or else disable controls and enable others
+        */
         private void pictureBox2_Click(object sender, EventArgs e)
         {
             dataGridViews[counter].Visible = false;
             counter++;
-            label1.Text = "Μέρα " + (counter + 1) + ": " + CategoryProcess.categoryEnumToGreek(categoryPerDay[counter]); //categoryPerDay[counter];
+            label1.Text = "Μέρα " + (counter + 1) + ": " + CategoryProcess.categoryEnumToGreek(categoryPerDay[counter]);
             dataGridViews[counter].Visible = true;
             if (counter + 1 == days) pictureBox2.Visible = false;
             if (counter == 1) pictureBox1.Visible = true;
-            // elegxos gia to button2.enabled ==> add new exercise
             this.button2.Enabled = !(tablesOfProgram[counter].Exercises.Count == 15);
         }
 
-        // add exercise
+        /**
+         * Add new exercise to daily program
+         */
         private void button2_Click(object sender, EventArgs e)
         {
-            // open form2
+            // Go to form2
             this.Enabled = false;
             Form2 form2 = new Form2(this, categoryPerDay[counter], counter);
             form2.Show();
@@ -95,17 +99,20 @@ namespace GenerateDocument
         private void DailyProgram_Load(object sender, EventArgs e)
         {
             counter = 0;
-            label1.Text = "Μέρα 1: " + CategoryProcess.categoryEnumToGreek(categoryPerDay[counter]); //categoryPerDay[counter];
+            label1.Text = "Μέρα 1: " + CategoryProcess.categoryEnumToGreek(categoryPerDay[counter]);
             pictureBox1.Visible = false;
             pictureBox2.Visible = false;
             if (days > 1) pictureBox2.Visible = true;
             dataGridViews[counter].Visible = true;
         }
 
-        // eksagwgh programmatos
+        /**
+         * Extract program
+         */
         private void button3_Click(object sender, EventArgs e)
         {
             // elegxos oti oloi oi pinakes exoune megethos megalutero apo 1 kai mikrotero apo 16
+            // verify that all the tables-lists have length > 1 and < 16 before we extract any program
             foreach(TableOfProgram tp in tablesOfProgram)
             {
                 if (tp.Exercises.Count < 1 || tp.Exercises.Count > 15)
@@ -115,7 +122,6 @@ namespace GenerateDocument
                 }
             }
 
-            // metavash se allh forma me olous tous pinakes gia epivevaiwsh (?)
             ExtractProgramForm extractProgramForm = new ExtractProgramForm(this, days, tablesOfProgram);
             this.Enabled = false;
             extractProgramForm.Show();
@@ -137,14 +143,13 @@ namespace GenerateDocument
 
         public void addExerciseToTable(String muscleGroup, String description, String equipment, int set, int reps, int rest, String notes)
         {
-            // prosthetei ena row sto datagridView ths day meras
-            // arxika prepei na valei sth lista to record kai meta isws na ta fortwnei ola mazi apo thn arxh
-            //TableOfProgram tableOfProgram = tablesOfProgram[counter];
+            // Add a new row to dataGridView for a specific day
+            // Append record to list so it can be displayed on gridView
             tablesOfProgram[counter].addExercise(muscleGroup, description, equipment, set, reps, rest, notes);
             dataGridViews[counter].Height += 20;
 
-            // telos elegxos oti den exei valei hdh 15 askiseis (15 einai to max) 
-            if (tablesOfProgram[counter].getTablesSize() == 17) // tablesOfProgram[counter].Excercises.Count == 15
+            // max rexords per daily program == 16
+            if (tablesOfProgram[counter].getTablesSize() == 17)
             {
                 this.button2.Enabled = false;
                 MessageBox.Show("Φτάσατε το μέγιστο όριο ασκήσεων που μπο΄ρείτε να προσθέσετε σε ένα πρόγραμμα.");

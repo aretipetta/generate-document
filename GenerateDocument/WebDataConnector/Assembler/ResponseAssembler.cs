@@ -64,5 +64,16 @@ namespace GenerateDocument.WebDataConnector.Assembler
             }
             return new CustomResponseFromFBDB(true, "New exercise added successfully");
         }
+
+        public CustomResponseFromFBDB equipementsToCustomResponse(FirebaseResponse response)
+        {
+            if(!response.StatusCode.ToString().Equals("OK"))
+            {
+                return new CustomResponseFromFBDB(false, "Could not found any equipement.");
+            }
+            Dictionary<String, String> dict = response.ResultAs<Dictionary<String, String>>();
+            List<String> equipements = dict.Values.ToList();
+            return new CustomResponseFromFBDB(true, equipements);
+        }
     }
 }

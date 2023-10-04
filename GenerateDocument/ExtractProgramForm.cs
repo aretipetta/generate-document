@@ -45,7 +45,9 @@ namespace GenerateDocument
             base.OnFormClosing(e);
         }
 
-        // dhmiourgia programmatos kai extract .docx file
+        /**
+         * Create program and extract .docx file
+         */
         private void button1_Click(object sender, EventArgs e)
         {
             validateInputs();
