@@ -1,4 +1,7 @@
-﻿using System;
+﻿using FireSharp.Response;
+using GenerateDocument.WebDataConnector;
+using GenerateDocument.WebDataConnector.Domain;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -21,35 +24,53 @@ namespace GenerateDocument
 
         private void button1_Click(object sender, EventArgs e)
         {
-            int n = (int)numericUpDown1.Value; // days
-            for(int i = 0; i < n; i++)
-            {
-                foreach (Control c in panels[i].Controls)
-                {
-                    if (c is ComboBox comboBox)
-                    {
-                        if (((ComboBox)c).SelectedIndex == -1)
-                        {
-                            MessageBox.Show("All fields are required.");
-                            return;
-                        }
-                    }
-                }
-            }
+            ConfigFirebase config = new ConfigFirebase();
+            CustomResponseFromFBDB resp = config.SelectExercise("UPPER_BODY");
 
-            List<CategoryEnum> categoryPerDay = new List<CategoryEnum>();  // list of program per day
-            for (int i = 0; i < n; i++)
+            if(!resp.OK)
             {
-                // pairnei tis times apo ta comboBoxes gia th lista pou tha steilei sthn next form
-                foreach (Control c in panels[i].Controls)
-                {
-                    if (c is ComboBox comboBox) categoryPerDay.Add((CategoryEnum)((ComboBox)c).SelectedIndex + 1);
-                }
+                MessageBox.Show("Something went wrong with data. Error message: " + resp.ResponseBody.ToString());
             }
-            // go to daily program
-            DailyProgram dailyProgram = new DailyProgram(this, n, categoryPerDay);
-            dailyProgram.Show();
-            this.Hide();
+            else
+            {
+                MessageBox.Show("dataa: " + resp.ResponseBody);
+            }
+            // todo: fix this
+            
+
+            //List<ExerciseRecordFBDB> exerc = resp.ResultAs<List<ExerciseRecordFBDB>>();
+            //FirebaseResponse resp = config.InsertNewExercise("UPPER_BODY", "ΣΤΗΘΟΣ", "DECLINE CHEST PRESS");
+            //MessageBox.Show("data0 = " + exerc[0]);
+
+            /* int n = (int)numericUpDown1.Value; // days
+             for(int i = 0; i < n; i++)
+             {
+                 foreach (Control c in panels[i].Controls)
+                 {
+                     if (c is ComboBox comboBox)
+                     {
+                         if (((ComboBox)c).SelectedIndex == -1)
+                         {
+                             MessageBox.Show("All fields are required.");
+                             return;
+                         }
+                     }
+                 }
+             }
+
+             List<CategoryEnum> categoryPerDay = new List<CategoryEnum>();  // list of program per day
+             for (int i = 0; i < n; i++)
+             {
+                 // pairnei tis times apo ta comboBoxes gia th lista pou tha steilei sthn next form
+                 foreach (Control c in panels[i].Controls)
+                 {
+                     if (c is ComboBox comboBox) categoryPerDay.Add((CategoryEnum)((ComboBox)c).SelectedIndex + 1);
+                 }
+             }
+             // go to daily program
+             DailyProgram dailyProgram = new DailyProgram(this, n, categoryPerDay);
+             dailyProgram.Show();
+             this.Hide(); */
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -109,5 +130,7 @@ namespace GenerateDocument
         {
             Application.Exit();
         }
+
+
     }
 }
