@@ -32,12 +32,13 @@ namespace GenerateDocument
             {
                 tablesOfProgram.Add(new TableOfProgram(categoryPerDay[i]));
                 DataGridView dataGridView = new DataGridView();
-                for (int j = 0; j < 8; j++)
-                {
-                    DataGridViewColumn dataGridViewColumn = new DataGridViewColumn();
-                    dataGridViewColumn.CellTemplate = new DataGridViewTextBoxCell();
-                    dataGridViewColumn.ReadOnly = true;
-                }
+                /* for (int j = 0; j < 8; j++)
+                 {
+                     DataGridViewColumn dataGridViewColumn = new DataGridViewColumn();
+                     dataGridViewColumn.CellTemplate = new DataGridViewTextBoxCell();
+                     dataGridViewColumn.ReadOnly = true;
+                 }*/
+
                 // position and size of dataGridView
                 dataGridView.Size = new Size(this.Width - 50, 50);
                 dataGridView.Location = new Point(10, 200);
@@ -52,10 +53,36 @@ namespace GenerateDocument
                 dataGridView.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
 
                 dataGridView.DataSource = tablesOfProgram[i].Exercises;  // this will be the dataSource
+
+                // add delete button column
+                DataGridViewButtonColumn deleteBtn = new DataGridViewButtonColumn();
+                deleteBtn.Name = "dataGridViewDeleteButton" + i.ToString();
+                deleteBtn.HeaderText = "Remove";
+                deleteBtn.Text = "Αφαίρεση";
+                deleteBtn.UseColumnTextForButtonValue = true;
+                dataGridView.Columns.Add(deleteBtn);
+                dataGridView.CellContentClick += removeRowFromGrid;
+
                 dataGridViews.Add(dataGridView);
                 this.Controls.Add(dataGridView);
             }
         }
+
+        /**
+         * Remove a row from the table
+         */
+        public void removeRowFromGrid(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridView dataGrid = (DataGridView)sender;
+            if(dataGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.RowIndex >= 0)
+            {
+                // remove the element from the list at the current position
+                tablesOfProgram[counter].Exercises.RemoveAt(e.ColumnIndex);
+                // and resize the height of the dataGridView
+                dataGridViews[counter].Height -= 20;
+            }
+        }
+        
 
         /**
          * Go to the exact previous day program, if it exists or else disable controls and enable others

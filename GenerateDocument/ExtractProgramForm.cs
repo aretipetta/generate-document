@@ -177,7 +177,7 @@ namespace GenerateDocument
                     footerRange.Font.ColorIndex = WdColorIndex.wdGray50;
                     footerRange.Font.Size = 9;
                     footerRange.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
-                    footerRange.Text = ":')";
+                    footerRange.Text = "Alter Life Δραπετσώνας";
                 }
 
                 // add image
@@ -213,7 +213,6 @@ namespace GenerateDocument
                             cell.Range.Font.Bold = 1;
                             cell.Shading.BackgroundPatternColor = (cell.RowIndex % 2 == 0) ? WdColor.wdColorLightYellow
                                 : WdColor.wdColorYellow;
-                            cell.VerticalAlignment = WdCellVerticalAlignment.wdCellAlignVerticalCenter;
                             cell.Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
                         }
                         else if (cell.ColumnIndex == 2 || cell.ColumnIndex == 4)
@@ -223,6 +222,7 @@ namespace GenerateDocument
                                 : WdColor.wdColorGray10;
                         }
                         if(cell.ColumnIndex == 2) offset++;
+                        cell.VerticalAlignment = WdCellVerticalAlignment.wdCellAlignVerticalBottom ;
                         cell.Range.Font.Size = 9;
                     }
                 }
@@ -343,7 +343,7 @@ namespace GenerateDocument
                 System.Runtime.InteropServices.Marshal.ReleaseComObject(wordApp);
                 wordApp = null;
 
-                MessageBox.Show("Document created successfully !");
+                MessageBox.Show("Το πρόγραμμα δημιουργήθηκε με επιτυχία!");
                 // return stin prohgoumenh
                 dailyProgram.Enabled = true;
                 this.Close();
