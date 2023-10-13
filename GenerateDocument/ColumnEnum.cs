@@ -1,19 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Reflection;
 
 namespace GenerateDocument
 {
-    enum ColumnEnum
+    public enum ColumnEnum
     {
-        Muscle_Groups = 1,
-        Description = 2,
-        Equipment = 3,
-        Set = 4,
-        Reps = 5, 
-        Break = 6,
-        Note = 7
+        [Description("ΜΥΙΚΗ ΟΜΑΔΑ")]
+        MUSCLE_GROUPS = 1,
+        [Description("ΠΕΡΙΓΡΑΦΗ")]
+        DESCRIPTION = 2,
+        [Description("ΕΞΟΠΛΙΣΜΟΣ")]
+        EQUIPEMENT = 3,
+        [Description("ΣΕΤ")]
+        SET = 4,
+        [Description("ΕΠΑΝ.")]
+        REPS = 5,
+        [Description("ΔΙΑΛ.")]
+        BREAK = 6,
+        [Description("ΠΑΡΑΤΗΡΗΣΕΙΣ")]
+        NOTE = 7
+    }
+
+
+    public static class ColumnProcess
+    {
+        // gets the greek term of a column that is displayed on table as header
+        public static string columnEnumToGreek(int index)
+        {
+            FieldInfo fi = ((ColumnEnum)index).GetType().GetField(((ColumnEnum)index).ToString());
+            DescriptionAttribute[] attributes = (DescriptionAttribute[])fi.GetCustomAttributes(typeof(DescriptionAttribute), false);
+            return attributes.First().Description;
+        }
     }
 }
