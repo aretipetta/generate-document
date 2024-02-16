@@ -91,6 +91,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AskToSendProgramForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AskToSendProgramForm.Designer.cs">
+      <DependentUpon>AskToSendProgramForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="CategoryEnum.cs" />
     <Compile Include="ColumnEnum.cs" />
     <Compile Include="DailyProgram.cs">
@@ -132,6 +138,9 @@
     <Compile Include="WebDataConnector\Domain\ConfigFirebase.cs" />
     <Compile Include="WebDataConnector\Resource\CustomResponseFromFBDB.cs" />
     <Compile Include="WebDataConnector\Resource\ExerciseRecordFBDB.cs" />
+    <EmbeddedResource Include="AskToSendProgramForm.resx">
+      <DependentUpon>AskToSendProgramForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DailyProgram.resx">
       <DependentUpon>DailyProgram.cs</DependentUpon>
     </EmbeddedResource>

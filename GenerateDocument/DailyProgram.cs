@@ -138,8 +138,7 @@ namespace GenerateDocument
          */
         private void button3_Click(object sender, EventArgs e)
         {
-            // elegxos oti oloi oi pinakes exoune megethos megalutero apo 1 kai mikrotero apo 16
-            // verify that all the tables-lists have length > 1 and < 16 before we extract any program
+            // verify that all the length of the tables-lists is > 1 and < 16 before we extract any program
             foreach(TableOfProgram tp in tablesOfProgram)
             {
                 if (tp.Exercises.Count < 1 || tp.Exercises.Count > 15)
@@ -179,7 +178,7 @@ namespace GenerateDocument
             if (tablesOfProgram[counter].getTablesSize() == 17)
             {
                 this.button2.Enabled = false;
-                MessageBox.Show("Φτάσατε το μέγιστο όριο ασκήσεων που μπο΄ρείτε να προσθέσετε σε ένα πρόγραμμα.");
+                MessageBox.Show("Φτάσατε το μέγιστο όριο ασκήσεων που μπορείτε να προσθέσετε σε ένα πρόγραμμα.");
             }
         }
 
