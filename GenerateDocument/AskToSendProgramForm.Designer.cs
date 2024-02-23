@@ -54,6 +54,7 @@ namespace GenerateDocument
             this.button1.TabIndex = 1;
             this.button1.Text = "Αποστολή";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
@@ -97,7 +98,7 @@ namespace GenerateDocument
             this.MinimizeBox = false;
             this.Name = "AskToSendProgramForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Pop-Up Αποστολή Προγράμματος ";
+            this.Text = "Αποστολή Προγράμματος ";
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -345,7 +345,7 @@ namespace GenerateDocument
 
                 MessageBox.Show("Το πρόγραμμα δημιουργήθηκε με επιτυχία!");
                 //todo: here a new window should open and ask if the user wants to send the program to the client
-                AskToSendProgramForm askToSendProgramForm = new AskToSendProgramForm();
+                AskToSendProgramForm askToSendProgramForm = new AskToSendProgramForm(filePath);
                 askToSendProgramForm.Show();
                 this.Hide();
                 // return stin prohgoumenh
