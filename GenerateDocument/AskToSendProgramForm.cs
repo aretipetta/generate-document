@@ -34,11 +34,11 @@ namespace GenerateDocument
             string email = textBox1.Text.ToString().Trim();
             if (!IsValidEmail(email))
             {
-                MessageBox.Show("Η ηλεκτρονική διεύθυνση ταχηδρομίου μοιάζει λανθασμένη.");
+                MessageBox.Show("Η ηλεκτρονική διεύθυνση ταχυδρομίου μοιάζει λανθασμένη.");
                 return;
             }
             // otherwise proceed and send the program
-
+            SendProgramToClient(email);
         }
 
         private Boolean IsValidEmail(String email)
@@ -54,24 +54,27 @@ namespace GenerateDocument
             {
                 MailMessage mail = new MailMessage();
                 SmtpClient smtpServer = new SmtpClient("smtp.gmail.com");
+                smtpServer.EnableSsl = true;
+                smtpServer.UseDefaultCredentials = false;
 
-                mail.From = new MailAddress("email from here");
-                mail.To.Add("email to here");
+                // sth is going wrong. there is a problem with the authentication of the user
+
+                mail.From = new MailAddress("---------");
+                mail.To.Add(emailTo);
                 mail.Subject = "Test";
                 mail.Body = "Hello. This is some test";
                 Attachment attachment = new Attachment(nameOfAttachmentFile);
                 mail.Attachments.Add(attachment);
 
                 smtpServer.Port = 587;
-                smtpServer.Credentials = new System.Net.NetworkCredential("email from here", "password should be here");
-                smtpServer.EnableSsl = true;
+                smtpServer.Credentials = new System.Net.NetworkCredential("-------------", "-----------");
+                
                 smtpServer.Send(mail);
                 MessageBox.Show("Η αποστολή του προγράμματος ήταν επιτυχημένη.");
-
             }
             catch(Exception e)
             {
-                MessageBox.Show("Η αποστολή προγράμματος απέτυχε.");
+                MessageBox.Show(e.Message);
             }
         }
     }
